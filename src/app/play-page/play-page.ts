@@ -1,11 +1,12 @@
 import levelsData from '../shared/data/level-data.json';
-import { LevelData } from '../shared/types/interfaces';
+import { LevelData, SaveData } from '../shared/types/interfaces';
 import { EnterPresser } from './widgets/CSS-editor/features/enterPresser';
 import { Highlighter } from './components/highlighter';
 import { Viewer } from './components/viewer';
 import { WinController } from './components/winController';
 import { LevelList } from './widgets/level-bar/level-list';
 import { Cleaner } from './components/cleaner';
+import { Loader } from './components/loader';
 
 export class PlayPage {
   private viewer: Viewer;
@@ -14,6 +15,7 @@ export class PlayPage {
   private winController: WinController;
   private levelList: LevelList;
   private cleaner: Cleaner;
+  private loader: Loader;
   private levelsData: LevelData[];
   private level: number;
   constructor() {
@@ -23,6 +25,7 @@ export class PlayPage {
     this.winController = new WinController();
     this.levelList = new LevelList();
     this.cleaner = new Cleaner();
+    this.loader = new Loader();
     this.levelsData = levelsData;
     this.level = 0;
   }
@@ -30,12 +33,13 @@ export class PlayPage {
     if (levelData) this.levelsData[this.level] = levelData;
 
     if (level === 0 || level) this.level = level;
-    
+
     switch (isGameWin) {
       case 'start':
         this.levelList.listenToHelp(this.checkHelpButton);
         this.levelList.listenToResetButton(this.resetGame);
-
+        this.listenToAutoSave();
+        this.loader.loadDataGame(this.getSaveData);
         // falls through
       case 'load':
         this.viewer.viewGameRoom(this.levelsData[this.level]);
@@ -74,5 +78,27 @@ export class PlayPage {
   private processSelectedLevel = (level: number) => {
     this.cleaner.cleanGameArea(true);
     this.loadGamePage('load', undefined, level);
+  };
+
+  private listenToAutoSave(): void {
+    window.onbeforeunload = () => {
+      const saveData: SaveData = {
+        currentLevel: this.level,
+        isPassedLevels: [],
+      };
+
+      this.levelsData.forEach((levelNum) => {
+        saveData.isPassedLevels.push(levelNum.isPassed);
+      });
+
+      localStorage.setItem('CSSPrankstersData', JSON.stringify(saveData));
+    };
+  }
+
+  private getSaveData = (saveData: SaveData): void => {
+    this.level = saveData.currentLevel;
+    saveData.isPassedLevels.forEach((saveLevel, index) => {
+      this.levelsData[index].isPassed = saveLevel;
+    });
   };
 }

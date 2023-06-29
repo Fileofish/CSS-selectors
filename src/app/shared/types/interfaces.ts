@@ -6,9 +6,15 @@ export interface LevelData {
   description: string,
   gameObjects: GameObject[],
 }
+
 export interface GameObject {
   type: string,
   active: boolean,
   attribute?: string,
   child?: GameObject
+}
+
+export interface SaveData {
+  currentLevel: number;
+  isPassedLevels: boolean[];
 }
