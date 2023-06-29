@@ -83,7 +83,7 @@
     .level {
       @include flex(flex, auto, center);
       @include padding-margin(3px 5px, 2px); 
-      cursor: pointer;
+      cursor: no-drop;
       transition: all 0.3s;
   
       .level__icon-paws {
@@ -92,24 +92,35 @@
         display: inline-block;
         fill: #7e7f71;
       }
-    
-      .level__icon-paws.is-passed {
-        fill: $color-text-accent-secondary;
-      }
     }
-  
-    .level:hover {
-      background-color: $color-background;
+
+    .level.active .level__icon-paws {
+      fill: $color-text-accent-secondary;
+    }
+
+    .level.active:hover {
+      background-color: $color-background-alt-secondary;
+      cursor: pointer;
+
       .level__icon-paws {
         fill: $color-background-alt;
       }
+
       .level__num {
         color: $color-text-accent;
       }
     }
-    
-    .level:active {
-      background-color: $color-background-accent-secondary;
+
+    .level.current {
+      background-color: $color-background;
+      
+      .level__icon-paws {
+        fill: $color-text;
+      }
+
+      .level__num {
+        color: $color-text;
+      }
     }
   }
 

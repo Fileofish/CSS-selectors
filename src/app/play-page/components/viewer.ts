@@ -1,3 +1,4 @@
+import { Callback } from '../../shared/types/generics';
 import { LevelData } from '../../shared/types/interfaces';
 import { CssEditor } from '../widgets/CSS-editor/CSS-editor';
 import { HtmlViewer } from '../widgets/HTML-viewer/HTML-viewer';
@@ -36,9 +37,9 @@ export class Viewer {
 
     htmlViewerElement?.append(htmlViewerFragment);
   }
-  viewLevelList(levelsData: LevelData[]): void {
+  viewLevelList(levelsData: LevelData[], callback: Callback<number>, level?: number): void {
     const levelListElement = document.querySelector('.level-bar__list');
-    const levelListFragment = this.levelList.getLevelList(levelsData);
+    const levelListFragment = this.levelList.getLevelList(levelsData, callback, level);
 
     levelListElement?.append(levelListFragment);
   }

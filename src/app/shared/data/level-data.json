@@ -1,6 +1,6 @@
 [
   {
-    "isPassed": false,
+    "isPassed": true,
     "winCondition": ["racoon"],
     "header": "Select the racoons",
     "hint": "A",
@@ -103,7 +103,7 @@
   },
   {
     "isPassed": false,
-    "winCondition": ["armchair gray-cat.small"],
+    "winCondition": ["armchair gray-cat.small", "armchair .small"],
     "header": "Select the small gray cats in the armchairs",
     "hint": "Put your back into it!",
     "description": "Combine what you learned in the last few levels to solve this one!",
@@ -125,7 +125,7 @@
   },
   {
     "isPassed": false,
-    "winCondition": ["armchair, carpet", "armchair, carpet"],
+    "winCondition": ["armchair, carpet", "carpet, armchair"],
     "header": "Select all the armchairs and carpets",
     "hint": "A, B",
     "description": "Thanks to Shatner technology, this selects all <span class='high'>A</span> and <span class='high'>B</span> elements. You can combine any selectors this way, and you can specify more than two.",

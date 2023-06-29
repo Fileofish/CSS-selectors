@@ -1,7 +1,12 @@
 import { WinCallback } from '../../shared/types/generics';
 import { LevelData } from '../../shared/types/interfaces';
+import { Cleaner } from './cleaner';
 
 export class WinController{
+  private cleaner: Cleaner;
+  constructor() {
+    this.cleaner = new Cleaner();
+  }
   controlWin(levelsData: LevelData[], level: number, 
     isWinLevel: boolean, loadGamePage: WinCallback<string, LevelData, number>): void {
     const condition = (isWinLevel && level === levelsData.length - 1) ? 'win'
@@ -10,13 +15,13 @@ export class WinController{
 
     switch (condition) {
       case 'nextLevel':
-        this.goNextLevel(levelsData[level], level, loadGamePage);
+        this.goNextLevel(levelsData, level, loadGamePage);
         break;
       case 'wrong':
         this.shakeScreen();
         break;
       case 'win':
-        this.winGame(levelsData[level], loadGamePage);
+        this.winGame(loadGamePage);
         break;
     }
   }
@@ -30,7 +35,7 @@ export class WinController{
     }, 200);
   }
 
-  private goNextLevel(levelData: LevelData, level: number,
+  private goNextLevel(levelsData: LevelData[], level: number,
     loadGamePage: WinCallback<string, LevelData, number>): void {
     const animatedObjects = document.querySelectorAll('.animation');
 
@@ -40,15 +45,15 @@ export class WinController{
         object.classList.remove('fly');
       }, 450);
     });
-    levelData.isPassed = true;
+    levelsData[level+1].isPassed = true;
     level++;
     setTimeout(() => {
-      this.cleanGameArea(true);
-      loadGamePage('load', levelData, level);
+      this.cleaner.cleanGameArea(true);
+      loadGamePage('load', levelsData[level-1], level);
     }, 500);
   }
 
-  private winGame(levelData: LevelData, loadGamePage: WinCallback<string, LevelData, number>): void {
+  private winGame(loadGamePage: WinCallback<string, LevelData, number>): void {
     const animatedObjects = document.querySelectorAll('.animation');
     const roomObjects = document.querySelectorAll('.css-room__obj');
     const happyObjects = ['I love you!😍', '...', `You're the best!🥳`, 'Nevermind...😒', 
@@ -57,33 +62,10 @@ export class WinController{
     animatedObjects.forEach((object) => {
       object.classList.add('fly');
     });
-    levelData.isPassed = true;
     roomObjects.forEach((object, index) => {
       object.setAttribute('data-title', happyObjects[index]);
     });
-    this.cleanGameArea(false);
-    loadGamePage('win', levelData);
-  }
-
-  private cleanGameArea(isNextLevel: boolean) {
-    const gameRoomTemplate = document.querySelector('.game-room__template');
-    const htmlViewerTemplate = document.querySelector('.HTML-viewer');
-    const levelList = document.querySelector('.level-bar__list');
-    const cssEditor = document.querySelector('.CSS-editor');
-    const isGoToNextLevel = (isNextLevel && gameRoomTemplate && htmlViewerTemplate && levelList && cssEditor);
-    const isGoToWinGame = (!isNextLevel && gameRoomTemplate && htmlViewerTemplate && levelList && cssEditor);
-    
-    if (isGoToNextLevel) {
-      gameRoomTemplate.innerHTML = '';
-      htmlViewerTemplate.innerHTML = '';
-      levelList.innerHTML = '';
-      cssEditor.innerHTML = '';
-    }
-
-    if (isGoToWinGame) {
-      htmlViewerTemplate.innerHTML = '';
-      levelList.innerHTML = '';
-      cssEditor.innerHTML = '';
-    }
+    this.cleaner.cleanGameArea(false);
+    loadGamePage('win');
   }
 }
