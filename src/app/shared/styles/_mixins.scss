@@ -1,0 +1,67 @@
+@mixin text-style($font-family, $font-size, $color) {
+  font-family: $font-family;
+  font-size: $font-size;
+  color: $color;
+}
+
+@mixin padding-margin($padding, $margin) {
+  padding: $padding;
+  margin: $margin;
+}
+
+@mixin width-height($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin flex($display, $justify-content: auto, $align-items: auto) {
+  display: $display;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+@mixin background($background-image, $background-size: cover, $background-position: center) {
+  background-image: $background-image;
+  background-size: $background-size;
+  background-position: $background-position;
+}
+
+@mixin border($border, $border-radius) {
+  border: $border;
+  border-radius: $border-radius;
+}
+
+@mixin absolute($position, $top, $right, $bottom, $left) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin button($background-color, $font-family: $font-primary-bold, $font-size: $font-size-medium, $color: $color-text, $padding: 5px 15px, $border-radius: 5px, $border: none, $box-shadow: none, $cursor: pointer, $transition: all 0.3s) {
+  background-color: $background-color;
+  font-family: $font-family;
+  font-size: $font-size;
+  color: $color;
+  padding: $padding;
+  border-radius: $border-radius;
+  border: $border;
+  box-shadow: $box-shadow;
+  cursor: $cursor;
+  transition: $transition;
+}
+
+@mixin button-hover($background-color, $color, $box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), $transform: translateY(-3px)) {
+  background-color: $background-color;
+  color: $color;
+  box-shadow: $box-shadow;
+  transform: $transform;
+}
+
+@mixin button-active($background-color, $color, $box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), $transform: translateY(0)) {
+  background-color: $background-color;
+  color: $color;
+  box-shadow: $box-shadow;
+  transform: $transform;
+}

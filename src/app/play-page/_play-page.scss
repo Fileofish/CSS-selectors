@@ -1,0 +1,67 @@
+* {@include padding-margin(0, 0);}
+
+.play-page {
+  @include flex(flex, space-between);
+  padding: 20px 0 0 60px;
+  background-color: $color-background;
+
+  .game {
+    @include width-height(72%, 94vh);
+
+    .game-banner {
+      @include flex(flex, auto);
+
+      .game-banner__icon {
+        @include width-height(30px, 30px);
+      }
+
+      .game__title {
+        margin: 0 0 10px 20px;
+        @include text-style($font-main-heading, $font-size-header, $color-text);
+      }
+    }
+
+    .game-room {
+      @include flex(flex, center, center);
+      @include width-height(100%, 200px);
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      @include background(url("./assets/img/game-room/room-bg.png"));
+      @include border(5px solid $color-border, 15px);
+    }
+
+    .code-wrapper {
+      @include flex(flex, center);
+      flex-wrap: wrap;
+
+      .CSS-editor,
+      .HTML-viewer {
+        @include flex(flex);
+      }
+    }
+
+    .code-wrapper.shake {
+      animation: shake 0.2s;
+    }
+
+    .modal-window {
+      display: none;
+      @include width-height(100%, 315px);
+    }
+
+    .modal-window.win {
+      @include flex(flex, center, center);
+      flex-direction: column;
+      text-align: center;
+      @include background(url("./assets/img/win-bg.png"));
+    }
+  }
+}
+
+@keyframes shake {
+  from {transform: translateX(0);}
+  25% {transform: translateX(-5px);}
+  50% {transform: translateX(0);}
+  75% {transform: translateX(5px);}
+  to {transform: translateX(0);}
+}

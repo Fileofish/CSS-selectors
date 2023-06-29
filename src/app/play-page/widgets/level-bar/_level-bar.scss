@@ -1,0 +1,127 @@
+.level-bar {
+  @include absolute(absolute, 0, 0, 0, auto);
+  padding: 20px;
+  width: 20%;
+  background-color: $color-background-secondary;
+  border-left: 2px solid $color-border;
+
+  .level-bar__wrapper {
+    @include flex(flex);
+    margin-bottom: 7px;
+
+    .level-bar__title {
+      @include text-style($font-main-heading, $font-size-header, $color-text);
+    }
+  
+    .level-bar__help-button {
+      margin-right: 20px;
+      padding: 2px;
+      @include width-height(31px, 31px);
+      fill: $color-text;
+      background-color: $color-background-secondary;
+      @include border(none, 50%);
+      cursor: pointer;
+    }
+    .level-bar__help-button:hover {
+      background-color: $color-background-accent-primary;
+      fill: $color-border;
+    }
+    .level-bar__help-button.active,
+    .level-bar__help-button:active {
+      background-color: $color-background-accent-secondary;
+      fill: $color-text;
+    }
+  }
+
+  .window-help {
+    height: 0;
+    border-top: 1px solid $color-border;
+    border-bottom: 1px solid $color-border;
+    transition: 1s all;
+
+    .window-help__wrapper {
+      display: none;
+
+      .window-help__title {
+        @include text-style($font-primary-bold, $font-size-medium, $color-text);
+      }
+
+      .window-help__hint {
+        display: inline-block;
+        @include padding-margin(0 7px, 0 0 3px 0);
+        background-color: $color-background-alt-secondary;
+        @include text-style($font-primary-bold, $font-size-medium, $color-text-accent);
+      }
+  
+      .window-help__description {
+        @include text-style($font-primary-regular, $font-size-small, $color-text);
+  
+        .high {
+          display: inline-block;
+          padding: 0 3px;
+          @include text-style($font-primary-bold, $font-size-small, $color-text-accent);
+          background-color: $color-background-alt-secondary;
+        }
+      }
+    }
+
+    .window-help__wrapper.active {
+      display: block;
+    }
+  }
+
+  .window-help.active {
+    height: auto;
+    padding: 7px 0;
+  }
+
+  .level-bar__list {
+    margin: 7px 0 15px;
+    list-style: none;
+    @include text-style($font-primary-bold, $font-size-medium, $color-text);
+  
+    .level {
+      @include flex(flex, auto, center);
+      @include padding-margin(3px 5px, 2px); 
+      cursor: pointer;
+      transition: all 0.3s;
+  
+      .level__icon-paws {
+        @include width-height(20px, 20px);
+        margin-right: 10px;
+        display: inline-block;
+        fill: #7e7f71;
+      }
+    
+      .level__icon-paws.is-passed {
+        fill: $color-text-accent-secondary;
+      }
+    }
+  
+    .level:hover {
+      background-color: $color-background;
+      .level__icon-paws {
+        fill: $color-background-alt;
+      }
+      .level__num {
+        color: $color-text-accent;
+      }
+    }
+    
+    .level:active {
+      background-color: $color-background-accent-secondary;
+    }
+  }
+
+  .reset-button {
+    @include button($color-background-accent-primary);
+  }
+  
+  .reset-button:hover {
+    @include button-hover($color-background, $color-text-accent);
+  }
+  
+  .reset-button:active {
+    @include button-active($color-background-accent-secondary, $color-text-alt);
+  }
+}

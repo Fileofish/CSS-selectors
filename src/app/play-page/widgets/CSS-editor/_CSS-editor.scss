@@ -1,0 +1,37 @@
+.CSS-editor__form {
+  @include flex(flex, space-between, baseline);
+  align-content: flex-start;
+  flex-wrap: wrap;
+  width: 92%;
+  padding: 4px 10px;
+  background-color: $color-background-alt-secondary;
+
+  .CSS-editor__form__input {
+    padding: 2px;
+    width: 80%;
+    margin-right: 10px;
+    @include text-style($font-code, $font-size-medium, $color-text);
+    letter-spacing: 1px;
+    @include border(none, 0);
+    background-color: $color-background-accent-secondary;
+  }
+
+  .CSS-editor__form__button {
+    @include button($color-background-accent-secondary, $font-code, $font-size-small, $color-text-accent, 2px 15px, 0, 1px solid $color-border, 0 4px 0 $color-border);
+  }
+
+  .CSS-editor__form__button.active,
+  .CSS-editor__form__button:active {
+    @include button-active($color-background-alt-secondary, $color-text, 0 2px 0 $color-border, translateY(1px));
+  }
+  
+  .CSS-editor__form__input:focus {
+    outline: none;
+  }
+
+  .CSS-editor__form__info {
+    @include text-style($font-code, $font-size-small, $color-text-accent);
+    line-height: 19.9px;
+    letter-spacing: 1.5px;
+  }
+}

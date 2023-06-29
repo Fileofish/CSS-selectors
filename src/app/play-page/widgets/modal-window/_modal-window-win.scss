@@ -1,0 +1,15 @@
+.modal-window__wrapper {
+  padding: 20px 25px;
+  background-color: $color-background-accent-primary;
+  @include border(2px solid $color-border, 15px);
+
+  .modal-window__title {
+    margin-bottom: 10px;
+    @include text-style($font-main-heading, $font-size-header, $color-text);
+  }
+  
+  .modal-window__text {
+    @include text-style($font-primary-bold, $font-code-bold, $color-text-accent);
+    line-height: 35px;
+  }
+}

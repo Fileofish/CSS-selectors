@@ -1,0 +1,122 @@
+.game-room__template {
+  @include flex(flex, center, center);
+}
+
+.css-room__obj {
+  display: inline-block;
+  position: relative;
+}
+
+.racoon--small,
+.gray-cat--small,
+.white-cat--small {
+  @include width-height(60px, 60px);
+  z-index: 1;
+}
+
+.racoon--fancy,
+.racoon,
+.gray-cat,
+.white-cat {
+  @include width-height(100px, 100px);
+  margin: 5px;
+  z-index: 1;
+}
+
+.carpet--red,
+.armchair,
+.carpet {
+  @include flex(flex, center, center);
+  @include width-height(180px, 180px);
+  z-index: 0;
+}
+
+// small animals
+.racoon--small  {@include background(url("./assets/img/game-room/racoon--small.png"));}
+.racoon--small.active {@include background(url("./assets/img/game-room/racoon--small--active.png"));}
+.gray-cat--small  {@include background(url("./assets/img/game-room/gray-cat--small.png"));}
+.gray-cat--small.active {@include background(url("./assets/img/game-room/gray-cat--small--active.png"));}
+.white-cat--small  {@include background(url("./assets/img/game-room/white-cat--small.png"));}
+.white-cat--small.active {@include background(url("./assets/img/game-room/white-cat--small--active.png"));}
+// normal animals
+.racoon  {@include background(url("./assets/img/game-room/racoon.png"));}
+.racoon.active {@include background(url("./assets/img/game-room/racoon--active.png"));}
+.racoon--fancy {@include background(url("./assets/img/game-room/racoon--fancy.png"));}
+.racoon--fancy.active {@include background(url("./assets/img/game-room/racoon--fancy--active.png"));}
+.gray-cat  {@include background(url("./assets/img/game-room/gray-cat.png"));}
+.gray-cat.active {@include background(url("./assets/img/game-room/gray-cat--active.png"));}
+.white-cat  {@include background(url("./assets/img/game-room/white-cat.png"));}
+.white-cat.active {@include background(url("./assets/img/game-room/white-cat--active.png"));}
+// furniture
+.armchair {@include background(url("./assets/img/game-room/armchair.png"));}
+.armchair.active {@include background(url("./assets/img/game-room/armchair--active.png"));}
+.carpet {@include background(url("./assets/img/game-room/carpet.png"));}
+.carpet.active {@include background(url("./assets/img/game-room/carpet--active.png"));}
+.carpet--red {@include background(url("./assets/img/game-room/carpet--red.png"));}
+.carpet--red.active {@include background(url("./assets/img/game-room/carpet--red--active.png"));}
+
+.animation {
+  animation: transformation 1s ease-in;
+  animation-iteration-count: infinite;
+}
+
+.animation.reflection {
+  animation: transformation-reflection 1s ease-in;
+  animation-iteration-count: infinite;
+}
+
+.reflection {
+  transform: scale(-1, 1);
+}
+
+@keyframes transformation {
+  10%, 50%, to {transform: skew(0, 0);}
+  20% { transform: skew(1deg, 1deg); }
+  80% { transform: skew(2deg, 2deg); }
+}
+
+@keyframes transformation-reflection {
+  60%, 80%, to {transform: skew(0, 0) scale(-1, 1);}
+  20% { transform: skew(1deg, 1deg) scale(-1, 1); }
+  80% { transform: skew(2deg, 2deg) scale(-1, 1); }
+}
+
+.no-reflection.active::after,
+.reflection.active::after {
+  content: attr(data-title);
+  max-width: 250px;
+  padding: 8px 10px;
+  white-space: nowrap;
+  @include absolute(absolute, -15px, -60px, auto, auto);
+  z-index: 2;
+  background-color: $color-background-accent-primary;
+  @include text-style($font-code-bold, $font-size-small, $color-text);
+  @include border(2px solid $color-border, 5px);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.racoon--small.active::after,
+.gray-cat--small.active::after,
+.white-cat--small.active::after {
+  top: -50px;
+}
+
+.racoon--fancy.active::after,
+.racoon.active::after,
+.gray-cat.active::after,
+.white-cat.active::after {
+  top: -40px;
+}
+
+.reflection.active::after {
+  transform: scale(-1, 1);
+}
+
+.animation.fly {
+  animation: fly 0.45s;
+}
+
+@keyframes fly {
+  from {transform: translateY(0);}
+  to {transform: translateY(-500px);}
+}

@@ -1,0 +1,25 @@
+.HTML-editor__display {
+  width: 92%;
+  padding: 5px 10px;
+  background-color: $color-background-alt;
+  @include text-style($font-code-bold, $font-size-medium, $color-background-accent-primary);
+  letter-spacing: 1px;
+
+  .htmlRow,
+  .htmlRow--child {
+    margin-top: 0.3px;
+    cursor: default;
+  }
+
+  .htmlRow {
+    margin-left: 20px;
+  }
+
+  .htmlRow.active {
+    color: $color-text;
+  }
+
+  .htmlRow--child {
+    margin-left: 40px;
+  }
+}

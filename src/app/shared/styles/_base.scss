@@ -1,0 +1,41 @@
+.code-wrapper__block {
+  width: 50%;
+
+  .title-wrapper {
+    background-color: $color-background-accent-primary;
+    @include flex(flex, space-between, center);
+  
+    .header3 {
+      margin: 10px;
+      @include text-style($font-code, $font-size-medium, $color-text-accent)
+    }
+    
+    .header4 {
+      margin: 10px;
+      @include text-style($font-code, $font-size-medium, $color-text-alt)
+    }
+  }
+  
+  .index-list {
+    padding: 6px 0;
+    width: 8%;
+    text-align: center;
+    list-style: none;
+    background-color: $color-background-accent-secondary;
+  
+    .index {
+      margin: 3px;
+      @include text-style($font-code, $font-size-small, $color-text-accent);
+      cursor: default;
+    }
+    
+    .index--dark {
+      color: $color-text-accent-secondary;
+    }
+  }
+  
+  .index-list--dark {
+    background-color: $color-background-alt;
+    border-right: 1.5px solid $color-border-alt;
+  }
+}
