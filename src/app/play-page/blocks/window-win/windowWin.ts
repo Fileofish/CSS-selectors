@@ -1,10 +1,10 @@
-export class ModalWindow{
-  getModalWindowWin() {
+export class WindowWin{
+  getWindowWin() {
     const fragment = document.createDocumentFragment();
 
-    const modalWindowWin = this.createWindowWin();
+    const windowWin = this.createWindowWin();
 
-    fragment.append(modalWindowWin);
+    fragment.append(windowWin);
 
     return fragment;
   }
@@ -14,9 +14,9 @@ export class ModalWindow{
     const winTitle = document.createElement('h2');
     const winContent = document.createElement('p');
 
-    modalWindowWin.className = 'modal-window__wrapper';
-    winTitle.className = 'modal-window__title';
-    winContent.className = 'modal-window__text';
+    modalWindowWin.className = 'window-win__wrapper';
+    winTitle.className = 'window-win__title';
+    winContent.className = 'window-win__text';
     winTitle.innerHTML = 'Congratulations!';
     winContent.innerHTML = `You are the best!<br>You can choose the completed level or reset the progress!`;
     modalWindowWin.append(winTitle);

@@ -21,21 +21,28 @@ export class CssEditor {
     const codeCssForm = document.createElement('div');
     const codeInput = document.createElement('input');
     const enterButton = document.createElement('button');
+    const cssFormWrapper = document.createElement('div');
     const inputInfo = document.createElement('p');
+    const helpButton = document.createElement('button');
 
-    codeCssForm.className = 'CSS-editor__form';
-    codeInput.className = 'CSS-editor__form__input';
+    codeCssForm.className = 'css-editor__form';
+    codeInput.className = 'css-editor__form__input';
     codeInput.type = 'text';
     codeInput.setAttribute('autofocus', 'autofocus');
     codeInput.placeholder = 'Type in a CSS selector';
     codeCssForm.append(codeInput);
-    enterButton.className = 'CSS-editor__form__button';
+    enterButton.className = 'css-editor__form__button css-editor__form__button--enter';
     enterButton.innerHTML = 'Enter';
     codeCssForm.append(enterButton);
-    inputInfo.className = 'CSS-editor__form__info';
+    cssFormWrapper.className = 'css-editor__form__wrapper';
+    codeCssForm.append(cssFormWrapper);
+    inputInfo.className = 'css-editor__form__info';
     inputInfo.innerHTML = `{<br>/* Styles would go here. */<br>}<br><br>/*<br>
       Type a number to skip to a level.<br>Ex → "3" for level 3<br>*/`;
-    codeCssForm.append(inputInfo);
+    cssFormWrapper.append(inputInfo);
+    helpButton.className = 'css-editor__form__button css-editor__form__button--help';
+    helpButton.innerHTML = 'Help';
+    cssFormWrapper.append(helpButton);
 
     return codeCssForm;
   }

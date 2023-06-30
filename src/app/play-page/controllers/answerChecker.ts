@@ -1,27 +1,30 @@
-import { WinCallback } from '../../shared/types/generics';
-import { LevelData } from '../../shared/types/interfaces';
+import { DataStorage, globalDataStorage } from '../../shared/data/dataStorage';
+import { Callback } from '../../shared/types/generics';
 import { Cleaner } from './cleaner';
 
-export class WinController{
+export class AnswerChecker{
+  private dataStorage: DataStorage;
   private cleaner: Cleaner;
   constructor() {
+    this.dataStorage = globalDataStorage;
     this.cleaner = new Cleaner();
   }
-  controlWin(levelsData: LevelData[], level: number, 
-    isWinLevel: boolean, loadGamePage: WinCallback<string, LevelData, number>): void {
-    const condition = (isWinLevel && level === levelsData.length - 1) ? 'win'
-      : (isWinLevel) ? 'nextLevel' 
+
+  controlAnswer(loadSelection: boolean, drawGamePage: Callback<string>): void {
+    const condition = (loadSelection
+      && this.dataStorage.currentLevel === this.dataStorage.levelsData.length - 1) ? 'win'
+      : (loadSelection) ? 'nextLevel'
       : 'wrong';
 
     switch (condition) {
       case 'nextLevel':
-        this.goNextLevel(levelsData, level, loadGamePage);
+        this.goNextLevel(drawGamePage);
         break;
       case 'wrong':
         this.shakeScreen();
         break;
       case 'win':
-        this.winGame(loadGamePage);
+        this.winGame(drawGamePage);
         break;
     }
   }
@@ -35,8 +38,7 @@ export class WinController{
     }, 200);
   }
 
-  private goNextLevel(levelsData: LevelData[], level: number,
-    loadGamePage: WinCallback<string, LevelData, number>): void {
+  private goNextLevel(drawGamePage: Callback<string>): void {
     const animatedObjects = document.querySelectorAll('.animation');
 
     animatedObjects.forEach((object) => {
@@ -45,15 +47,15 @@ export class WinController{
         object.classList.remove('fly');
       }, 450);
     });
-    levelsData[level+1].isPassed = true;
-    level++;
+    this.dataStorage.levelsData[this.dataStorage.currentLevel + 1].isPassed = true;
+    this.dataStorage.currentLevel++;
     setTimeout(() => {
       this.cleaner.cleanGameArea(true);
-      loadGamePage('load', levelsData[level-1], level);
+      drawGamePage('load');
     }, 500);
   }
 
-  private winGame(loadGamePage: WinCallback<string, LevelData, number>): void {
+  private winGame(drawGamePage: Callback<string>): void {
     const animatedObjects = document.querySelectorAll('.animation');
     const roomObjects = document.querySelectorAll('.css-room__obj');
     const happyObjects = ['I love you!😍', '...', `You're the best!🥳`, 'Nevermind...😒', 
@@ -66,6 +68,6 @@ export class WinController{
       object.setAttribute('data-title', happyObjects[index]);
     });
     this.cleaner.cleanGameArea(false);
-    loadGamePage('win');
+    drawGamePage('win');
   }
 }

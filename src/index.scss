@@ -5,8 +5,8 @@
 
 @import 'app/play-page//play-page';
 
-@import 'app/play-page/widgets/game-room/game-room';
-@import 'app/play-page/widgets/CSS-editor/CSS-editor';
-@import 'app/play-page/widgets/HTML-viewer/HTML-viewer';
-@import 'app/play-page/widgets/level-bar/level-bar';
-@import 'app/play-page/widgets/modal-window/modal-window-win';
+@import 'app/play-page/blocks/css-room/css-room';
+@import 'app/play-page/blocks/css-editor/css-editor';
+@import 'app/play-page/blocks/html-viewer/html-viewer';
+@import 'app/play-page/blocks/level-bar/level-bar';
+@import 'app/play-page/blocks/window-win/window-win';

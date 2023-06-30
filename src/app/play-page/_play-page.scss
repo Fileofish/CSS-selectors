@@ -34,8 +34,8 @@
       @include flex(flex, center);
       flex-wrap: wrap;
 
-      .CSS-editor,
-      .HTML-viewer {
+      .css-editor,
+      .html-viewer {
         @include flex(flex);
       }
     }
@@ -44,12 +44,12 @@
       animation: shake 0.2s;
     }
 
-    .modal-window {
+    .window-win {
       display: none;
       @include width-height(100%, 315px);
     }
 
-    .modal-window.win {
+    .window-win.win {
       @include flex(flex, center, center);
       flex-direction: column;
       text-align: center;

@@ -4,7 +4,7 @@ export class Highlighter{
     this.hoverElements = [];
   }
 
-  listenTo(): void {
+  listenToHighLight(): void {
     const objectsArr = document.querySelectorAll('.css-room__obj');
     const elementsArr = document.querySelectorAll('.htmlRow');
 
@@ -23,9 +23,7 @@ export class Highlighter{
 
     this.addHighlight(target);
 
-    if (isParentObject) {
-      this.removeHighlight(parentTargetObj);
-    }
+    if (isParentObject) this.removeHighlight(parentTargetObj);
   };
 
   private handleMouseLeave = (e: Event): void => {
@@ -35,27 +33,9 @@ export class Highlighter{
 
     this.removeHighlight(target);
 
-    if (isParentObject) {
-      this.addHighlight(parentTargetObj);
-    }
+    if (isParentObject) this.addHighlight(parentTargetObj);
   };
-
-  // private handleMouseEnter = (e: Event): void => {
-  //   const target = e.target as HTMLElement;
-  //   const parentTargetObj = target.closest('.active') as HTMLElement;
-
-  //   this.toggleHighlight(target);
-
-  //   if (parentTargetObj) this.toggleHighlight(parentTargetObj);
-  // };
-
-  // private handleMouseLeave = (e: Event): void => {
-  //   const target = e.target as HTMLElement;
-  //   const parentTargetObj = target.closest('.active') as HTMLElement;
-
-  //   if (parentTargetObj) this.toggleHighlight(parentTargetObj);
-  // };
-
+  
   private addHighlight(target: HTMLElement): void {
     const targetId = target.className.split('Id')[1][0];
     const targetClass = `objectId${targetId}`;

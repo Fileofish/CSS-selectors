@@ -1,17 +1,21 @@
+import { DataStorage, globalDataStorage } from '../../../shared/data/dataStorage';
 import { IndexList } from '../../../shared/modules/indexList';
-import { GameObject, LevelData } from '../../../shared/types/interfaces';
+import { GameObject } from '../../../shared/types/interfaces';
 
 export class HtmlViewer {
+  private dataStorage: DataStorage;
   private indexList: IndexList;
   private objectId: number;
   constructor() {
+    this.dataStorage = globalDataStorage;
     this.indexList = new IndexList();
     this.objectId = 0;
   }
-  getHtmlViewer(levelsData: LevelData): DocumentFragment {
+
+  getHtmlViewer(): DocumentFragment {
     const fragment = document.createDocumentFragment();
     const indexList = this.indexList.createIndexList(true);
-    const codeHtmlForm = this.createCodeDisplay(levelsData);
+    const codeHtmlForm = this.createCodeDisplay();
 
     fragment.append(indexList);
     fragment.append(codeHtmlForm);
@@ -20,7 +24,8 @@ export class HtmlViewer {
     
     return fragment;
   }
-  private createCodeDisplay(levelsData: LevelData): HTMLDivElement {
+
+  private createCodeDisplay(): HTMLDivElement {
     const codeHtmlDisplay = document.createElement('div');
     const htmlOpenDivRoom = document.createElement('p');
     const htmlCloseDivRoom = document.createElement('p');
@@ -29,7 +34,7 @@ export class HtmlViewer {
     htmlOpenDivRoom.textContent = '<div class="room">';
     htmlCloseDivRoom.textContent = '</div>';
     codeHtmlDisplay.append(htmlOpenDivRoom);
-    levelsData.gameObjects.forEach((element) => {
+    this.dataStorage.currentLevelData().gameObjects.forEach((element) => {
       const currentElement = this.createHtmlElement(element);
       const currentCloseElement = document.createElement('p');
 
@@ -52,6 +57,7 @@ export class HtmlViewer {
 
     return codeHtmlDisplay;
   }
+  
   private createHtmlElement(element: GameObject): HTMLDivElement {
     const objectElement = document.createElement('p');
     const isParent = (element.child) ? '-parent' : '';

@@ -13,7 +13,7 @@
       @include text-style($font-main-heading, $font-size-header, $color-text);
     }
   
-    .level-bar__help-button {
+    .level-bar__description-button {
       margin-right: 20px;
       padding: 2px;
       @include width-height(31px, 31px);
@@ -22,38 +22,38 @@
       @include border(none, 50%);
       cursor: pointer;
     }
-    .level-bar__help-button:hover {
+    .level-bar__description-button:hover {
       background-color: $color-background-accent-primary;
       fill: $color-border;
     }
-    .level-bar__help-button.active,
-    .level-bar__help-button:active {
+    .level-bar__description-button.active,
+    .level-bar__description-button:active {
       background-color: $color-background-accent-secondary;
       fill: $color-text;
     }
   }
 
-  .window-help {
+  .window-description {
     height: 0;
     border-top: 1px solid $color-border;
     border-bottom: 1px solid $color-border;
     transition: 1s all;
 
-    .window-help__wrapper {
+    .window-description__wrapper {
       display: none;
 
-      .window-help__title {
+      .window-description__title {
         @include text-style($font-primary-bold, $font-size-medium, $color-text);
       }
 
-      .window-help__hint {
+      .window-description__hint {
         display: inline-block;
         @include padding-margin(0 7px, 0 0 3px 0);
         background-color: $color-background-alt-secondary;
         @include text-style($font-primary-bold, $font-size-medium, $color-text-accent);
       }
   
-      .window-help__description {
+      .window-description__description {
         @include text-style($font-primary-regular, $font-size-small, $color-text);
   
         .high {
@@ -65,12 +65,12 @@
       }
     }
 
-    .window-help__wrapper.active {
+    .window-description__wrapper.active {
       display: block;
     }
   }
 
-  .window-help.active {
+  .window-description.active {
     height: auto;
     padding: 7px 0;
   }
@@ -108,6 +108,12 @@
 
       .level__num {
         color: $color-text-accent;
+      }
+    }
+
+    .level.hint {
+      .level__icon-paws {
+        fill: $color-text-hint;
       }
     }
 

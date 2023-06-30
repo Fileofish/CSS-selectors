@@ -1,0 +1,49 @@
+.css-editor__form {
+  @include flex(flex, space-between, baseline);
+  align-content: flex-start;
+  flex-wrap: wrap;
+  width: 92%;
+  padding: 4px 10px;
+  background-color: $color-background-alt-secondary;
+
+  .css-editor__form__input {
+    padding: 2px;
+    width: 80%;
+    margin-right: 10px;
+    @include text-style($font-code, $font-size-medium, $color-text);
+    letter-spacing: 1px;
+    @include border(none, 0);
+    background-color: $color-background-accent-secondary;
+    transition: all 1s;
+  }
+
+  .css-editor__form__button {
+    @include button($color-background-accent-secondary, $font-code, $font-size-small, $color-text, 2px 15px, 0, 1px solid $color-border, 0 4px 0 $color-border);
+  }
+
+  .css-editor__form__button.active,
+  .css-editor__form__button:active {
+    @include button-active($color-background-alt-secondary, $color-text, 0 2px 0 $color-border, translateY(1px));
+  }
+  
+  .css-editor__form__input:focus {
+    outline: none;
+  }
+
+  .css-editor__form__wrapper {
+    width: 100%;
+    @include flex(flex, space-between, flex-start);
+
+    .css-editor__form__info {
+      @include text-style($font-code, $font-size-small, $color-text-accent);
+      line-height: 19.9px;
+      letter-spacing: 1.5px;
+    }
+
+    .css-editor__form__button--help {
+      width: 65.56px;
+      margin-top: 10px;
+      color: $color-text-accent
+    }
+  }
+}

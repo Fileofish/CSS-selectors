@@ -1,6 +1,7 @@
 [
   {
     "isPassed": true,
+    "isHint": false,
     "winCondition": ["racoon"],
     "header": "Select the racoons",
     "hint": "A",
@@ -12,6 +13,7 @@
   },
   {
     "isPassed": false,
+    "isHint": false,
     "winCondition": ["gray-cat"],
     "header": "Select the gray cats",
     "hint": "A",
@@ -24,6 +26,7 @@
   },
   {
     "isPassed": false,
+    "isHint": false,
     "winCondition": ["#fancy"],
     "header": "Select the fancy racoon",
     "hint": "#id",
@@ -36,6 +39,7 @@
   },
   {
     "isPassed": false,
+    "isHint": false,
     "winCondition": ["armchair gray-cat"],
     "header": "Select the gray cat on the armchair",
     "hint": "A  B",
@@ -50,6 +54,7 @@
   },
   {
     "isPassed": false,
+    "isHint": false,
     "winCondition": ["#red white-cat"],
     "header": "Select the white cat on the red carpet",
     "hint": "#id  A",
@@ -68,6 +73,7 @@
   },
   {
     "isPassed": false,
+    "isHint": false,
     "winCondition": [".small"],
     "header": "Select the small racoons",
     "hint": ".classname",
@@ -83,6 +89,7 @@
   },
   {
     "isPassed": false,
+    "isHint": false,
     "winCondition": ["white-cat.small"],
     "header": "Select the small white cats",
     "hint": "A.className",
@@ -103,6 +110,7 @@
   },
   {
     "isPassed": false,
+    "isHint": false,
     "winCondition": ["armchair gray-cat.small", "armchair .small"],
     "header": "Select the small gray cats in the armchairs",
     "hint": "Put your back into it!",
@@ -125,6 +133,7 @@
   },
   {
     "isPassed": false,
+    "isHint": false,
     "winCondition": ["armchair, carpet", "carpet, armchair"],
     "header": "Select all the armchairs and carpets",
     "hint": "A, B",
@@ -147,6 +156,7 @@
   },
   {
     "isPassed": false,
+    "isHint": false,
     "winCondition": ["*"],
     "header": "Select all the things!",
     "hint": "*",

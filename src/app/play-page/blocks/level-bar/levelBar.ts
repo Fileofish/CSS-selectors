@@ -1,23 +1,25 @@
+import { DataStorage, globalDataStorage } from '../../../shared/data/dataStorage';
 import { Callback } from '../../../shared/types/generics';
-import { LevelData } from '../../../shared/types/interfaces';
 
-export class LevelList{
+export class LevelBar{
+  private dataStorage: DataStorage;
   private selectLevelCallback: Callback<number> | null;
   constructor() {
+    this.dataStorage = globalDataStorage;
     this.selectLevelCallback = null;
   }
 
-  getLevelList(levelsData: LevelData[], callback: Callback<number>, currentLevel?: number): DocumentFragment {
+  getLevelList(selectLevelCallback: Callback<number>): DocumentFragment {
     const fragment = document.createDocumentFragment();
 
-    this.selectLevelCallback = callback;
-    levelsData.forEach((level, index) => {
+    this.selectLevelCallback = selectLevelCallback;
+    this.dataStorage.levelsData.forEach((level, index) => {
       const levelNumber = index + 1;
       const levelRow = document.createElement('li');
       const levelNumberText = document.createElement('p');
       const iconTemplate = document.querySelector('.level-bar__icon') as HTMLTemplateElement;
       const iconClone = iconTemplate?.content.cloneNode(true) as Element;
-      const isCurrentLevel = (index === currentLevel);
+      const isCurrentLevel = (index === this.dataStorage.currentLevel);
 
       levelRow.className = `level level!${levelNumber}!`;
       levelNumberText.className = `level__num level__num!${levelNumber}!`;
@@ -25,6 +27,10 @@ export class LevelList{
       if (level.isPassed || isCurrentLevel) {
         levelRow.classList.add('active');
         this.listenPassedLevel(levelRow);
+      }
+
+      if (level.isHint) {
+        levelRow.classList.add('hint');
       }
 
       if (isCurrentLevel) levelRow.classList.add('current');
@@ -37,7 +43,7 @@ export class LevelList{
     return fragment;
   }
 
-  listenPassedLevel(levelRow: Element) {
+  private listenPassedLevel(levelRow: Element) {
     levelRow.addEventListener('click', this.selectLevel as EventListener);
   }
 
@@ -56,40 +62,45 @@ export class LevelList{
     const isNotSvgPath = (nameTag !== 'path');
     
     if (isNotSvgPath && this.selectLevelCallback) {
-      const targetElementClass = +target.className.split('!')[1] - 1;
+      const selectedLevel = +target.className.split('!')[1] - 1;
 
-      this.selectLevelCallback(targetElementClass);
+      this.selectLevelCallback(selectedLevel);
     }
   };
 
-  listenToHelp(callback: () => void) {
-    const helpButton = document.querySelectorAll('.level-bar__help-button') ;
+  listenToDescription(toggleWindowDescriptionCallback: () => void) {
+    const descriptionButton = document.querySelectorAll('.level-bar__description-button') ;
 
-    helpButton?.forEach((element) => {
+    descriptionButton?.forEach((element) => {
       element.addEventListener('click', () => {
-        callback();
+        toggleWindowDescriptionCallback();
       });
     });
   }
 
-  listenToResetButton(callback: () => void) {
+  listenToResetButton(resetGameCallback: () => void) {
     const resetButton = document.querySelector('.reset-button');
     
     resetButton?.addEventListener('click', () => {
-      callback();
+      this.dataStorage.currentLevel = 0;
+      this.dataStorage.levelsData.forEach((level, index) => {
+        if (index) level.isPassed = false;
+        level.isHint = false;
+      });
+      resetGameCallback();
     });
   }
   
-  createHelpWindow(LevelData: LevelData): void {
-    const windowHelpTitle = document.querySelector('.window-help__title');
-    const windowHelpHint = document.querySelector('.window-help__hint');
-    const windowHelpDescription = document.querySelector('.window-help__description');
-    const isElements = (windowHelpTitle && windowHelpHint && windowHelpDescription);
+  createDescriptionWindow(): void {
+    const windowDescriptionTitle = document.querySelector('.window-description__title');
+    const windowDescriptionHint = document.querySelector('.window-description__hint');
+    const windowDescriptionDescription = document.querySelector('.window-description__description');
+    const isElements = (windowDescriptionTitle && windowDescriptionHint && windowDescriptionDescription);
 
     if (isElements) {
-      windowHelpTitle.innerHTML = LevelData.header;
-      windowHelpHint.innerHTML = LevelData.hint;
-      windowHelpDescription.innerHTML = LevelData.description;
+      windowDescriptionTitle.innerHTML = this.dataStorage.currentLevelData().header;
+      windowDescriptionHint.innerHTML = this.dataStorage.currentLevelData().hint;
+      windowDescriptionDescription.innerHTML = this.dataStorage.currentLevelData().description;
     }
   }
 }

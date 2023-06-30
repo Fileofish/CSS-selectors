@@ -1,14 +1,18 @@
-import { GameObject, LevelData } from '../../../shared/types/interfaces';
+import { DataStorage, globalDataStorage } from '../../../shared/data/dataStorage';
+import { GameObject } from '../../../shared/types/interfaces';
 
 export class CssRoom {
+  private dataStorage: DataStorage;
   private objectId: number;
   constructor() {
+    this.dataStorage = globalDataStorage;
     this.objectId = 0;
   }
-  getCssRoom(levelsData: LevelData): DocumentFragment {
+
+  getCssRoom(): DocumentFragment {
     const fragment = document.createDocumentFragment();
 
-    levelsData.gameObjects.forEach((oject) => {
+    this.dataStorage.currentLevelData().gameObjects.forEach((oject) => {
       const currentObject = this.createElement(oject);
 
       if (oject.child) {
@@ -23,6 +27,7 @@ export class CssRoom {
 
     return fragment;
   }
+  
   private createElement(oject: GameObject): HTMLDivElement {
     const objectElement = document.createElement('div');
     const isParent = Boolean(oject.child);

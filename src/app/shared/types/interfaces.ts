@@ -1,5 +1,6 @@
 export interface LevelData {
   isPassed: boolean,
+  isHint: boolean,
   winCondition: string[],
   header: string,
   hint: string,
