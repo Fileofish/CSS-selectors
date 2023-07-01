@@ -2,39 +2,48 @@
   {
     "isPassed": true,
     "isHint": false,
-    "winCondition": ["racoon"],
-    "header": "Select the racoons",
-    "hint": "A",
-    "description": "Selects all elements of type <span class='high'>A</span>. Type refers to the type of tag, so <span class='high'>&#60div&#62</span>, <span class='high'>&#60p&#62</span> and <span class='high'>&#60ul&#62</span> are all different element types.",
-    "gameObjects": [
-      {"type": "racoon", "active": true},
-      {"type": "racoon", "active": true}
-    ]
-  },
-  {
-    "isPassed": false,
-    "isHint": false,
-    "winCondition": ["gray-cat"],
-    "header": "Select the gray cats",
-    "hint": "A",
-    "description": "Selects all elements of type <span class='high'>A</span>. Type refers to the type of tag, so <span class='high'>&#60div&#62</span>, <span class='high'>&#60p&#62</span> and <span class='high'>&#60ul&#62</span> are all different element types.",
-    "gameObjects": [
-      {"type": "gray-cat", "active": true},
-      {"type": "racoon", "active": false},
-      {"type": "gray-cat", "active": true}
-    ]
-  },
-  {
-    "isPassed": false,
-    "isHint": false,
-    "winCondition": ["#fancy"],
-    "header": "Select the fancy racoon",
+    "winCondition": ["#inCap"],
+    "header": "Select the gray cat in a cap",
     "hint": "#id",
-    "description": "Selects the element with a specific <span class='high'>id</span>. You can also combine the ID selector with the type selector.",
+    "description": "Select element with the id <span class='high'>inCap</span>",
     "gameObjects": [
-      {"type": "racoon--fancy", "active": true, "attribute": "id=\"fancy\""},
+      {"type": "gray-cat--fancy", "active": true, "attribute": "id=\"inCap\""},
+      {"type": "racoon", "active": false}
+    ]
+  },
+  {
+    "isPassed": false,
+    "isHint": false,
+    "winCondition": [".cub"],
+    "header": "Select cubs",
+    "hint": ".class_name",
+    "description": "Select all elements with the <span class='high'>cub</span> class.",
+    "gameObjects": [
+      {"type": "racoon--small", "active": true, "attribute": "class=\"cub\""},
       {"type": "racoon", "active": false},
-      {"type": "gray-cat", "active": false}
+      {"type": "armchair", "active": false, "child": {
+        "type": "white-cat--small", "active": true, "attribute": "class=\"cub\""
+      }},
+      {"type": "gray-cat--small", "active": true, "attribute": "class=\"cub\""}
+    ]
+  },
+  {
+    "isPassed": false,
+    "isHint": false,
+    "winCondition": ["armchair .cub"],
+    "header": "Select the cubs in a armchairs",
+    "hint": "A  .class_name",
+    "description": "Select all elements with class <span class='high'>cub</span> in armchairs.",
+    "gameObjects": [
+      {"type": "armchair", "active": false, "child": {
+        "type": "gray-cat--small", "active": true, "attribute": "class=\"cub\""
+      }},
+      {"type": "carpet", "active": false, "child": {
+        "type": "gray-cat--small", "active": false, "attribute": "class=\"cub\""
+      }},
+      {"type": "armchair", "active": false, "child": {
+        "type": "racoon--small", "active": true, "attribute": "class=\"cub\""
+      }}
     ]
   },
   {
@@ -74,17 +83,16 @@
   {
     "isPassed": false,
     "isHint": false,
-    "winCondition": [".small"],
-    "header": "Select the small racoons",
-    "hint": ".classname",
-    "description": "The class selector selects all elements with that class attribute. Elements can only have one ID, but many classes.",
+    "winCondition": [".cub:first-child"],
+    "header": "Select the first cub",
+    "hint": ":first-child",
+    "description": "Select the first animal with the <span class='high'>cub</span> class.",
     "gameObjects": [
-      {"type": "gray-cat", "active": false},
-      {"type": "racoon--small", "active": true, "attribute": "class=\"small\""},
-      {"type": "armchair", "active": false, "child": {
-        "type": "racoon--small", "active": true, "attribute": "class=\"small\""
-      }},
-      {"type": "racoon", "active": false}
+      {"type": "racoon--small", "active": true, "attribute": "class=\"cub\""},
+      {"type": "gray-cat--small", "active": false, "attribute": "class=\"cub\""},
+      {"type": "racoon--small", "active": false, "attribute": "class=\"cub\""},
+      {"type": "gray-cat--small", "active": false, "attribute": "class=\"cub\""},
+      {"type": "racoon--small", "active": false, "attribute": "class=\"cub\""}
     ]
   },
   {
@@ -96,38 +104,38 @@
     "description": "You can combine the class selector with other selectors, like the type selector.",
     "gameObjects": [
       {"type": "racoon", "active": false},
-      {"type": "racoon--small", "active": false, "attribute": "class=\"small\""},
+      {"type": "racoon--small", "active": false, "attribute": "class=\"cub\""},
       {"type": "armchair", "active": false, "child": {
-        "type": "white-cat--small", "active": true, "attribute": "class=\"small\""
+        "type": "white-cat--small", "active": true, "attribute": "class=\"cub\""
       }},
       {"type": "carpet", "active": false, "child": {
         "type": "white-cat", "active": false
       }},
       {"type": "carpet", "active": false, "child": {
-        "type": "white-cat--small", "active": true, "attribute": "class=\"small\""
+        "type": "white-cat--small", "active": true, "attribute": "class=\"cub\""
       }}
     ]
   },
   {
     "isPassed": false,
     "isHint": false,
-    "winCondition": ["armchair gray-cat.small", "armchair .small"],
-    "header": "Select the small gray cats in the armchairs",
+    "winCondition": ["armchair gray-cat.cub", "armchair .cub"],
+    "header": "Select the cubs gray cats in the armchairs",
     "hint": "Put your back into it!",
     "description": "Combine what you learned in the last few levels to solve this one!",
     "gameObjects": [
       {"type": "armchair", "active": false, "child": {
         "type": "gray-cat", "active": false
       }},
-      {"type": "gray-cat--small", "active": false, "attribute": "class=\"small\""},
+      {"type": "gray-cat--small", "active": false, "attribute": "class=\"cub\""},
       {"type": "armchair", "active": false, "child": {
-        "type": "gray-cat--small", "active": true, "attribute": "class=\"small\""
+        "type": "gray-cat--small", "active": true, "attribute": "class=\"cub\""
       }},
       {"type": "armchair", "active": false, "child": {
-        "type": "white-cat--small", "active": false, "attribute": "class=\"small\""
+        "type": "white-cat--small", "active": false, "attribute": "class=\"cub\""
       }},
       {"type": "armchair", "active": false, "child": {
-        "type": "gray-cat--small", "active": true, "attribute": "class=\"small\""
+        "type": "gray-cat--small", "active": true, "attribute": "class=\"cub\""
       }}
     ]
   },
@@ -139,7 +147,7 @@
     "hint": "A, B",
     "description": "Thanks to Shatner technology, this selects all <span class='high'>A</span> and <span class='high'>B</span> elements. You can combine any selectors this way, and you can specify more than two.",
     "gameObjects": [
-      {"type": "racoon--small", "active": false, "attribute": "class=\"small\""},
+      {"type": "racoon--small", "active": false, "attribute": "class=\"cub\""},
       {"type": "racoon", "active": false},
       {"type": "armchair", "active": true, "child": {
         "type": "racoon", "active": true
@@ -151,7 +159,7 @@
         "type": "racoon", "active": true
       }},
       {"type": "racoon", "active": false},
-      {"type": "racoon--small", "active": false, "attribute": "class=\"small\""}
+      {"type": "racoon--small", "active": false, "attribute": "class=\"cub\""}
     ]
   },
   {
@@ -162,7 +170,7 @@
     "hint": "*",
     "description": "You can select all elements with the universal selector!",
     "gameObjects": [
-      {"type": "gray-cat--small", "active": true, "attribute": "class=\"small\""},
+      {"type": "gray-cat--small", "active": true, "attribute": "class=\"cub\""},
       {"type": "armchair", "active": true, "child": {
         "type": "white-cat", "active": true
       }},
@@ -170,7 +178,7 @@
       {"type": "armchair", "active": true, "child": {
         "type": "white-cat", "active": true
       }},
-      {"type": "racoon--fancy", "active": true, "attribute": "id=\"fancy\""}
+      {"type": "racoon--fancy", "active": true, "attribute": "id=\"inCap\""}
     ]
   }
 ]

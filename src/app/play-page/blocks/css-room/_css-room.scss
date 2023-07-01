@@ -15,6 +15,7 @@
 }
 
 .racoon--fancy,
+.gray-cat--fancy,
 .racoon,
 .gray-cat,
 .white-cat {
@@ -45,6 +46,8 @@
 .racoon--fancy.active {@include background(url("./assets/img/game-room/racoon--fancy--active.png"));}
 .gray-cat  {@include background(url("./assets/img/game-room/gray-cat.png"));}
 .gray-cat.active {@include background(url("./assets/img/game-room/gray-cat--active.png"));}
+.gray-cat--fancy  {@include background(url("./assets/img/game-room/gray-cat--fancy.png"));}
+.gray-cat--fancy.active {@include background(url("./assets/img/game-room/gray-cat--fancy--active.png"));}
 .white-cat  {@include background(url("./assets/img/game-room/white-cat.png"));}
 .white-cat.active {@include background(url("./assets/img/game-room/white-cat--active.png"));}
 // furniture
@@ -98,10 +101,11 @@
 .racoon--small.active::after,
 .gray-cat--small.active::after,
 .white-cat--small.active::after {
-  top: -50px;
+  top: -75px;
 }
 
 .racoon--fancy.active::after,
+.gray-cat--fancy.active::after,
 .racoon.active::after,
 .gray-cat.active::after,
 .white-cat.active::after {
