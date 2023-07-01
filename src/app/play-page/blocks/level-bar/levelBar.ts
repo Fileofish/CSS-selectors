@@ -49,11 +49,11 @@ export class LevelBar{
     return fragment;
   }
 
-  private listenPassedLevel(levelRow: Element) {
+  private listenPassedLevel(levelRow: Element): void {
     levelRow.addEventListener('click', this.selectLevel as EventListener);
   }
 
-  cleanPassedLevelsListener() {
+  cleanPassedLevelsListener(): void {
     const levelList = document.querySelector('.level-bar__list');
     const passedLevels = levelList?.querySelectorAll('.active');
 
@@ -75,7 +75,7 @@ export class LevelBar{
     }
   };
 
-  listenToDescription(toggleWindowDescriptionCallback: () => void) {
+  listenToDescription(toggleWindowDescriptionCallback: () => void): void {
     const descriptionButton = document.querySelectorAll('.level-bar__description-button') ;
 
     descriptionButton?.forEach((element) => {
@@ -85,7 +85,7 @@ export class LevelBar{
     });
   }
 
-  listenToResetButton(resetGameCallback: () => void) {
+  listenToResetButton(resetGameCallback: () => void): void {
     const resetButton = document.querySelector('.reset-button');
     
     resetButton?.addEventListener('click', () => {
@@ -95,6 +95,18 @@ export class LevelBar{
         level.isHint = false;
       });
       resetGameCallback();
+    });
+  }
+
+  listenToBurgerButton(): void {
+    const burgerButton = document.querySelector('.level-bar__burger-button');
+    const levelBar = document.querySelector('.level-bar');
+    const levelBarTitle = document.querySelector('.level-bar__title');
+    
+    burgerButton?.addEventListener('click', () => {
+      burgerButton?.classList.toggle('active');
+      levelBar?.classList.toggle('active');
+      levelBarTitle?.classList.toggle('off');
     });
   }
   

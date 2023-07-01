@@ -38,6 +38,7 @@ export class HtmlViewer {
       const currentElement = this.createHtmlElement(element);
       const currentCloseElement = document.createElement('p');
 
+      htmlOpenDivRoom.className = htmlCloseDivRoom.className = 'HTML-editor__room';
       currentElement.className = currentCloseElement.className = `htmlRow objectId${this.objectId}`;
       this.objectId++;
 

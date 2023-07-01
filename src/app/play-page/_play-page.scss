@@ -32,6 +32,10 @@
     overflow-y: scroll;
     scrollbar-color: $color-border $color-background;
 
+    @include _1240 {
+      width: 100%
+    }
+
     .game-banner {
       @include flex(flex, auto);
 
@@ -52,6 +56,8 @@
       box-sizing: border-box;
       @include background(url("./assets/img/game-room/room-bg.png"));
       @include border(5px solid $color-border, 15px);
+
+      @include _765 {height: 150px;}
     }
 
     .code-wrapper {
@@ -89,8 +95,6 @@
     background-color: $color-background;
   }
 }
-
-
 
 @keyframes shake {
   from {transform: translateX(0);}

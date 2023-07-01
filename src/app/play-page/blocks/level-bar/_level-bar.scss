@@ -1,9 +1,70 @@
+.level-bar__burger-button__wrapper {
+  display: none;
+  @include position(absolute, 0, 0, auto, auto);
+
+  @include _1240 {
+    display: block;
+    z-index: 6;
+  }
+
+  .level-bar__burger-button {
+    padding: 5px 60px;
+    @include text-style($font-main-heading, $font-size-header, $color-text);
+    background-color: $color-background-secondary;
+    border-radius: 0 0 0 20px;
+    border: none;
+    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+
+  .level-bar__burger-button:hover {
+    background-color: $color-background-alt-secondary;
+  }
+
+  .level-bar__burger-button.active {
+
+    @include _1240 {
+      padding: 19px 115px 6px 20px;
+      background-color: $color-background-alt-secondary;
+      box-shadow: none;
+      animation: blinkingBurger 1s;
+      animation-iteration-count: infinite;
+    }
+  
+  }
+}
+
+@keyframes blinkingBurger {
+  from {background-color: $color-background-alt-secondary;}
+  to {background-color: $color-background-secondary;}
+}
+
 .level-bar {
   @include position(fixed, 0, 0, auto, auto);
   padding: 0 0 20px 20px;
   @include width-height(20%, 100%);
   background-color: $color-background-secondary;
   border-left: 2px solid $color-border;
+
+  @include _1240 {
+    display: none;
+    width: 22%;
+  }
+  @include _1185 {width: 24%;}
+  @include _1080 {width: 26%;}
+  @include _1000 {width: 28%;}
+  @include _925 {width: 30%;}
+  @include _865 {width: 32%;}
+  @include _810 {width: 34%;}
+  @include _765 {width: 36%;}
+  @include _720 {width: 38%;}
+  @include _685 {width: 40%;}
+  @include _650 {width: 42%;}
+  @include _620 {width: 44%;}
+  @include _590 {width: 46%;}
+  @include _565 {width: 48%;}
+  @include _540 {width: 50%;}
+  @include _520 {width: 52%;}
 
   .level-bar__wrapper {
     padding-top: 20px;
@@ -161,3 +222,20 @@
     @include button-active($color-background-accent-secondary, $color-text-alt);
   }
 }
+
+.level-bar.active {
+
+  @include _1240 {
+    display: block;
+    z-index: 5;
+  }
+
+  .level-bar__title.off {
+
+    @include _1240 {
+      display: none;
+    }
+  
+  }
+}
+

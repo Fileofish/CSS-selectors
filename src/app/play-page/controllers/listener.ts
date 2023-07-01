@@ -33,6 +33,7 @@ export class Listener {
       case('start'):
         this.levelBar.listenToDescription(this.viewer.toggleWindowDescription);
         this.levelBar.listenToResetButton(this.resetGame);
+        this.levelBar.listenToBurgerButton();
         this.saver.listenToAutoSave();
         break;
       case('load'):

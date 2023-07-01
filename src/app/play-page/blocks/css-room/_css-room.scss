@@ -12,6 +12,12 @@
 .white-cat--small {
   @include width-height(60px, 60px);
   z-index: 1;
+
+  @include _1000 {@include width-height(50px, 50px);}
+  @include _865 {@include width-height(40px, 40px);}
+  @include _765 {@include width-height(30px, 30px);}
+  @include _650 {@include width-height(25px, 25px);}
+  @include _540 {@include width-height(20px, 20px);}
 }
 
 .racoon--fancy,
@@ -22,6 +28,12 @@
   @include width-height(100px, 100px);
   margin: 5px;
   z-index: 1;
+
+  @include _1000 {@include width-height(80px, 80px);}
+  @include _865 {@include width-height(65px, 65px);}
+  @include _765 {@include width-height(50px, 50px);}
+  @include _650 {@include width-height(35px, 35px);}
+  @include _540 {@include width-height(30px, 30px);}
 }
 
 .carpet--red,
@@ -30,6 +42,12 @@
   @include flex(flex, center, center);
   @include width-height(180px, 180px);
   z-index: 0;
+
+  @include _1000 {@include width-height(160px, 160px);}
+  @include _865 {@include width-height(140px, 140px);}
+  @include _765 {@include width-height(120px, 120px);}
+  @include _650 {@include width-height(100px, 100px);}
+  @include _540 {@include width-height(80px, 80px);}
 }
 
 // small animals
