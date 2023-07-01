@@ -138,6 +138,25 @@
   animation: fly 0.45s;
 }
 
+.picture-loader {
+  display: none;
+
+  // small animals
+  .racoon--small {@include background(url("./assets/img/game-room/racoon--small--active.png"));}
+  .gray-cat--small {@include background(url("./assets/img/game-room/gray-cat--small--active.png"));}
+  .white-cat--small {@include background(url("./assets/img/game-room/white-cat--small--active.png"));}
+  // normal animals
+  .racoon {@include background(url("./assets/img/game-room/racoon--active.png"));}
+  .racoon--fancy {@include background(url("./assets/img/game-room/racoon--fancy--active.png"));}
+  .gray-cat {@include background(url("./assets/img/game-room/gray-cat--active.png"));}
+  .gray-cat--fancy {@include background(url("./assets/img/game-room/gray-cat--fancy--active.png"));}
+  .white-cat {@include background(url("./assets/img/game-room/white-cat--active.png"));}
+  // furniture
+  .armchair {@include background(url("./assets/img/game-room/armchair--active.png"));}
+  .carpet {@include background(url("./assets/img/game-room/carpet--active.png"));}
+  .carpet--red {@include background(url("./assets/img/game-room/carpet--red--active.png"));}
+}
+
 @keyframes fly {
   from {transform: translateY(0);}
   to {transform: translateY(-500px);}

@@ -20,7 +20,6 @@ export class CssRoom {
 
         currentObject.append(childObject);
       }
-
       fragment.append(currentObject);
     });
     this.objectId = 0;

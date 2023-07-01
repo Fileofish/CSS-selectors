@@ -30,9 +30,12 @@ export class Viewer {
 
   private viewCssRoom(): void {
     const gameRoomBlock = document.querySelector('.game-room__wrapper');
+    const pictureLoader = document.querySelector('.picture-loader');
     const gameRoomFragment = this.cssRoom.getCssRoom();
+    const cloneGameRoomFragment = this.cssRoom.getCssRoom();
 
     gameRoomBlock?.append(gameRoomFragment);
+    pictureLoader?.append(cloneGameRoomFragment);
   }
 
   private viewCssEditor(): void {
