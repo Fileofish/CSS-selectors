@@ -1,11 +1,21 @@
 .level-bar {
-  @include absolute(absolute, 0, 0, 0, auto);
-  padding: 20px;
-  width: 20%;
+  @include position(fixed, 0, 0, auto, auto);
+  padding: 0 0 20px 20px;
+  @include width-height(20%, 100%);
   background-color: $color-background-secondary;
   border-left: 2px solid $color-border;
 
   .level-bar__wrapper {
+    padding-top: 20px;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  .level-bar__second-wrapper {
+    padding-right: 20px;
+  }
+
+  .level-bar__title-wrapper {
     @include flex(flex);
     margin-bottom: 7px;
 
@@ -92,6 +102,10 @@
         display: inline-block;
         fill: #7e7f71;
       }
+
+      .level-name {
+        @include text-style($font-primary-regular, $font-size-medium, $color-text)
+      }
     }
 
     .level.active .level__icon-paws {
@@ -107,6 +121,10 @@
       }
 
       .level__num {
+        color: $color-text-accent;
+      }
+
+      .level-name {
         color: $color-text-accent;
       }
     }
@@ -131,6 +149,7 @@
   }
 
   .reset-button {
+    margin-bottom: 50px;
     @include button($color-background-accent-primary);
   }
   

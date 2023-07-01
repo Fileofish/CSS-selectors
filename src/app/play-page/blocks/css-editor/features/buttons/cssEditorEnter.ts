@@ -3,16 +3,16 @@ import { Callback } from '../../../../../shared/types/generics';
 
 export class CssEditorEnter {
   private dataStorage: DataStorage;
-  private checkWinLevelCallback: Callback<boolean> | null;
+  private checkInputValueCallback: Callback<string> | null;
   constructor() {
     this.dataStorage = globalDataStorage;
-    this.checkWinLevelCallback = null;
+    this.checkInputValueCallback = null;
   }
 
-  cleanupListeners(checkWinLevelCallback: Callback<boolean>) {
+  cleanupListeners(checkInputValueCallback: Callback<string>) {
     const enterButton = document.querySelector('.css-editor__form__button--enter');
 
-    this.checkWinLevelCallback = checkWinLevelCallback;
+    this.checkInputValueCallback = checkInputValueCallback;
     document.removeEventListener('keydown', this.keydownListener);
     enterButton?.removeEventListener('click', this.clickListener);
   }
@@ -28,35 +28,38 @@ export class CssEditorEnter {
   }
 
   private clickListener = () => {
-    if (this.checkWinLevelCallback) {
-      const isWin = this.checkValue();
+    if (this.checkInputValueCallback) {
+      const inputValue = this.checkValue();
 
-      this.checkWinLevelCallback(isWin);
+      this.checkInputValueCallback(inputValue);
     }
   };
 
   private keydownListener = (event: KeyboardEvent) => {
     const enterButton = document.querySelector('.css-editor__form__button--enter');
 
-    if (event.key === 'Enter' && this.checkWinLevelCallback) {
-      const isWin = this.checkValue();
+    if (event.key === 'Enter' && this.checkInputValueCallback) {
+      const inputValue = this.checkValue();
 
       enterButton?.classList.add('active');
       setTimeout(() => {
         enterButton?.classList.remove('active');
       }, 150);
 
-      this.checkWinLevelCallback(isWin);
+      this.checkInputValueCallback(inputValue);
     } 
   };
 
-  private checkValue(): boolean {
+  private checkValue(): string {
     const gameInput = document.querySelector('.css-editor__form__input') as HTMLInputElement;
     const inputValue = gameInput?.value.trim() as string;
-    const checkValue = this.dataStorage.currentLevelData().winCondition.includes(inputValue);
+    const isWinCondition = this.dataStorage.currentLevelData().winCondition.includes(inputValue);
+    const completedLevelsCount = this.dataStorage.levelsData.filter((level) => level.isPassed).length;
+    const isValueCompletedLevel = +inputValue <= completedLevelsCount;
+    const inputSelection = (isWinCondition) ? 'win' : (isValueCompletedLevel) ? `goToLevel ${inputValue}` : 'wrong';
 
-    if (checkValue) gameInput.value = '';
+    if (inputValue) gameInput.value = '';
 
-    return checkValue;
+    return inputSelection;
   }
 }

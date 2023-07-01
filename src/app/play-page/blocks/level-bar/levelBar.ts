@@ -1,18 +1,22 @@
 import { DataStorage, globalDataStorage } from '../../../shared/data/dataStorage';
-import { Callback } from '../../../shared/types/generics';
+import { Callback, SelectLevelCallback } from '../../../shared/types/generics';
 
 export class LevelBar{
   private dataStorage: DataStorage;
-  private selectLevelCallback: Callback<number> | null;
+  private goToSelectedLevelCallback: SelectLevelCallback<number, Callback<string>> | null;
+  private drawGamePageCallback: Callback<string> | null;
   constructor() {
     this.dataStorage = globalDataStorage;
-    this.selectLevelCallback = null;
+    this.goToSelectedLevelCallback = null;
+    this.drawGamePageCallback = null;
   }
 
-  getLevelList(selectLevelCallback: Callback<number>): DocumentFragment {
+  getLevelList(goToSelectedLevelCallback: SelectLevelCallback<number, Callback<string>>,
+    drawGamePageCallback: Callback<string>): DocumentFragment {
     const fragment = document.createDocumentFragment();
 
-    this.selectLevelCallback = selectLevelCallback;
+    this.goToSelectedLevelCallback = goToSelectedLevelCallback;
+    this.drawGamePageCallback = drawGamePageCallback;
     this.dataStorage.levelsData.forEach((level, index) => {
       const levelNumber = index + 1;
       const levelRow = document.createElement('li');
@@ -34,7 +38,9 @@ export class LevelBar{
       }
 
       if (isCurrentLevel) levelRow.classList.add('current');
-      levelNumberText.innerHTML = String(levelNumber);
+      levelNumberText.innerHTML = `
+        ${levelNumber} <span class="level-name num!${levelNumber}!">- ${this.dataStorage.levelsData[index].hint}</span>
+      `;
       levelRow.append(iconClone);
       levelRow.append(levelNumberText);
       fragment.append(levelRow);
@@ -59,12 +65,13 @@ export class LevelBar{
   private selectLevel = (event: MouseEvent): void => {
     const target = event.target as Element;
     const nameTag = target.tagName;
+    const isNotSvg = (nameTag !== 'svg');
     const isNotSvgPath = (nameTag !== 'path');
     
-    if (isNotSvgPath && this.selectLevelCallback) {
-      const selectedLevel = +target.className.split('!')[1] - 1;
+    if (isNotSvgPath && isNotSvg && this.goToSelectedLevelCallback && this.drawGamePageCallback) {
+      const selectedLevel: number = +target.className.split('!')[1] - 1;
 
-      this.selectLevelCallback(selectedLevel);
+      this.goToSelectedLevelCallback(selectedLevel, this.drawGamePageCallback);
     }
   };
 

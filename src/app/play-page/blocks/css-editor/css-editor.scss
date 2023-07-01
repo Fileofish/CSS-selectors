@@ -12,9 +12,14 @@
     margin-right: 10px;
     @include text-style($font-code, $font-size-medium, $color-text);
     letter-spacing: 1px;
+    background-color: $color-background-alt-secondary;
     @include border(none, 0);
-    background-color: $color-background-accent-secondary;
     transition: all 1s;
+  }
+
+  .css-editor__form__input.active {
+    animation: blinking 1s;
+    animation-iteration-count: infinite;
   }
 
   .css-editor__form__button {
@@ -46,4 +51,9 @@
       color: $color-text-accent
     }
   }
+}
+
+@keyframes blinking {
+  from {background-color: $color-background-alt-secondary;}
+  to {background-color: $color-background-accent-secondary;;}
 }

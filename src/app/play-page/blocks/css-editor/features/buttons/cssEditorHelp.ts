@@ -22,6 +22,7 @@ export class CssEditorHelp {
     const cssEditorInput = document.querySelector('.css-editor__form__input') as HTMLInputElement;
     const currentAnswer = this.dataStorage.currentLevelData().winCondition[0];
 
+    cssEditorInput.value = '';
     currentAnswer.split('').forEach((symbol, index) => {
       setTimeout(() => cssEditorInput.value += symbol, 150 * (index + 1));
     });

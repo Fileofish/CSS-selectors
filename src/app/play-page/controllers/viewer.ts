@@ -1,4 +1,4 @@
-import { Callback } from '../../shared/types/generics';
+import { Callback, SelectLevelCallback } from '../../shared/types/generics';
 import { CssEditor } from '../blocks/css-editor/css-editor';
 import { HtmlViewer } from '../blocks/html-viewer/htmlViewer';
 import { CssRoom } from '../blocks/css-room/css-room';
@@ -19,11 +19,12 @@ export class Viewer {
     this.windowWin = new WindowWin();
   }
 
-  viewGamePage(goToSelectedLevelCallback: Callback<number>): void {
+  viewGamePage(goToSelectedLevelCallback: SelectLevelCallback<number, Callback<string>>,
+    drawGamePageCallback: Callback<string>): void {
     this.viewCssRoom();
     this.viewCssEditor();
     this.viewHtmlViewer();
-    this.viewLevelList(goToSelectedLevelCallback);
+    this.viewLevelList(goToSelectedLevelCallback, drawGamePageCallback);
     this.levelBar.createDescriptionWindow();
   }
 
@@ -39,6 +40,10 @@ export class Viewer {
     const cssEditorFragment = this.cssEditor.getCssEditor();
 
     cssEditorBlock?.append(cssEditorFragment);
+
+    const codeInput = document.querySelector('.css-editor__form__input') as HTMLInputElement;
+
+    codeInput?.focus();
   }
 
   private viewHtmlViewer(): void {
@@ -48,9 +53,10 @@ export class Viewer {
     htmlViewerBlock?.append(htmlViewerFragment);
   }
 
-  viewLevelList(goToSelectedLevelCallback: Callback<number>): void {
+  viewLevelList(goToSelectedLevelCallback: SelectLevelCallback<number, Callback<string>>,
+    drawGamePageCallback: Callback<string>): void {
     const levelListElement = document.querySelector('.level-bar__list');
-    const levelListFragment = this.levelBar.getLevelList(goToSelectedLevelCallback);
+    const levelListFragment = this.levelBar.getLevelList(goToSelectedLevelCallback, drawGamePageCallback);
 
     levelListElement?.append(levelListFragment);
   }

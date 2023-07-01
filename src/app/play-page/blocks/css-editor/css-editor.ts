@@ -26,7 +26,7 @@ export class CssEditor {
     const helpButton = document.createElement('button');
 
     codeCssForm.className = 'css-editor__form';
-    codeInput.className = 'css-editor__form__input';
+    codeInput.className = 'css-editor__form__input active';
     codeInput.type = 'text';
     codeInput.setAttribute('autofocus', 'autofocus');
     codeInput.placeholder = 'Type in a CSS selector';
@@ -43,6 +43,13 @@ export class CssEditor {
     helpButton.className = 'css-editor__form__button css-editor__form__button--help';
     helpButton.innerHTML = 'Help';
     cssFormWrapper.append(helpButton);
+    codeInput.oninput = () => {
+      if (codeInput.value === '') {
+        codeInput.classList.add('active');
+      } else {
+        codeInput.classList.remove('active');
+      }
+    };
 
     return codeCssForm;
   }

@@ -37,7 +37,7 @@ export class Listener {
         break;
       case('load'):
         this.highlighter.listenToHighLight();
-        this.cssEditorFeatureAnalyzer.listenToEnter(this.checkWinLevel);
+        this.cssEditorFeatureAnalyzer.listenToEnter(this.checkInputValue);
         this.cssEditorFeatureAnalyzer.listenToHelp();
         break;
       case('win'):
@@ -52,7 +52,7 @@ export class Listener {
     if (this.drawGamePageCallback) this.drawGamePageCallback('load');
   };
 
-  private checkWinLevel = (loadSelection: boolean): void => {
-    if (this.drawGamePageCallback) this.answerChecker.controlAnswer(loadSelection, this.drawGamePageCallback);
+  private checkInputValue = (inputValue: string): void => {
+    if (this.drawGamePageCallback) this.answerChecker.controlAnswer(inputValue, this.drawGamePageCallback);
   };
 }

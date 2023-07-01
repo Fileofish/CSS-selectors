@@ -1,19 +1,30 @@
 import { DataStorage, globalDataStorage } from '../../shared/data/dataStorage';
 import { Callback } from '../../shared/types/generics';
 import { Cleaner } from './cleaner';
+import { LevelSelector } from './levelSelector';
 
 export class AnswerChecker{
   private dataStorage: DataStorage;
   private cleaner: Cleaner;
+  private levelSelector: LevelSelector;
   constructor() {
     this.dataStorage = globalDataStorage;
     this.cleaner = new Cleaner();
+    this.levelSelector = new LevelSelector();
   }
 
-  controlAnswer(loadSelection: boolean, drawGamePage: Callback<string>): void {
-    const condition = (loadSelection
+  controlAnswer(inputValue: string, drawGamePage: Callback<string>): void {
+    const commandInputValue = inputValue.split(' ');
+    let numSelectedLevel = 0;
+
+    if (commandInputValue[1]) {
+      numSelectedLevel = +commandInputValue[1];
+    }
+
+    const condition = (commandInputValue[0] === 'win'
       && this.dataStorage.currentLevel === this.dataStorage.levelsData.length - 1) ? 'win'
-      : (loadSelection) ? 'nextLevel'
+      : (commandInputValue[0] === 'win') ? 'nextLevel'
+      : (commandInputValue[0] === 'goToLevel' && numSelectedLevel) ? 'goToLevel'
       : 'wrong';
 
     switch (condition) {
@@ -25,6 +36,9 @@ export class AnswerChecker{
         break;
       case 'win':
         this.winGame(drawGamePage);
+        break;
+      case 'goToLevel':
+        this.levelSelector.goToSelectedLevel(numSelectedLevel - 1, drawGamePage);
         break;
     }
   }

@@ -1,21 +1,24 @@
-import { DataStorage } from '../../shared/data/dataStorage';
+import { DataStorage, globalDataStorage } from '../../shared/data/dataStorage';
 import { SaveData } from '../../shared/types/interfaces';
 
 export class Loader{
   private dataStorage: DataStorage;
   constructor() {
-    this.dataStorage = new DataStorage();
+    this.dataStorage = globalDataStorage;
   }
 
   loadDataGame() {
     const dataSave = localStorage.getItem('CSSPrankstersData');
 
     if (dataSave !== null) {
-      const paseDataSave: SaveData = JSON.parse(dataSave);
+      const parseDataSave: SaveData = JSON.parse(dataSave);
 
-      this.dataStorage.currentLevel = paseDataSave.currentLevel;
-      paseDataSave.isPassedLevels.forEach((saveLevel, index) => {
-        this.dataStorage.levelsData[index].isPassed = saveLevel;
+      this.dataStorage.currentLevel = parseDataSave.currentLevel;
+      parseDataSave.isPassedLevels.forEach((saveCondition, index) => {
+        this.dataStorage.levelsData[index].isPassed = saveCondition;
+      });
+      parseDataSave.isHintedLevels.forEach((saveCondition, index) => {
+        this.dataStorage.levelsData[index].isHint = saveCondition;
       });
     }
   }

@@ -18,4 +18,5 @@ export interface GameObject {
 export interface SaveData {
   currentLevel: number;
   isPassedLevels: boolean[];
+  isHintedLevels: boolean[];
 }

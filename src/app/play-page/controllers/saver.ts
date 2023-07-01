@@ -8,17 +8,21 @@ export class Saver {
   }
 
   listenToAutoSave(): void {
-    window.onbeforeunload = () => {
-      const saveData: SaveData = {
-        currentLevel: this.dataStorage.currentLevel,
-        isPassedLevels: [],
-      };
-
-      this.dataStorage.levelsData.forEach((levelNum) => {
-        saveData.isPassedLevels.push(levelNum.isPassed);
-      });
-
-      localStorage.setItem('CSSPrankstersData', JSON.stringify(saveData));
-    };
+    window.onbeforeunload = this.saveGame;
   }
+
+  private saveGame = (): void => {
+    const saveData: SaveData = {
+      currentLevel: this.dataStorage.currentLevel,
+      isPassedLevels: [],
+      isHintedLevels: [],
+    };
+
+    this.dataStorage.levelsData.forEach((levelNum) => {
+      saveData.isPassedLevels.push(levelNum.isPassed);
+      saveData.isHintedLevels.push(levelNum.isHint);
+    });
+
+    localStorage.setItem('CSSPrankstersData', JSON.stringify(saveData));
+  };
 }

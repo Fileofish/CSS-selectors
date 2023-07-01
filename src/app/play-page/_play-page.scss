@@ -1,12 +1,36 @@
 * {@include padding-margin(0, 0);}
 
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $color-border $color-background-accent-primary;
+}
+
+/* Chrome, Edge и Safari */
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: $color-background-secondary;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $color-border;
+  border-radius: 20px;
+  border: 1px solid $color-background-accent-primary;
+}
+
 .play-page {
+  @include position(fixed, 0, 0, 0, 0);
   @include flex(flex, space-between);
-  padding: 20px 0 0 60px;
   background-color: $color-background;
 
   .game {
-    @include width-height(72%, 94vh);
+    padding: 20px 40px 0;
+    @include width-height(72.45%, 94vh);
+    overflow-y: scroll;
+    scrollbar-color: $color-border $color-background;
 
     .game-banner {
       @include flex(flex, auto);
@@ -56,7 +80,17 @@
       @include background(url("./assets/img/win-bg.png"));
     }
   }
+
+  .game::-webkit-scrollbar {
+    background-color: $color-background;
+  }
+  
+  .game::-webkit-scrollbar-track {
+    background-color: $color-background;
+  }
 }
+
+
 
 @keyframes shake {
   from {transform: translateX(0);}

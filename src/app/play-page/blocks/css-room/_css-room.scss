@@ -87,7 +87,7 @@
   max-width: 250px;
   padding: 8px 10px;
   white-space: nowrap;
-  @include absolute(absolute, -15px, -60px, auto, auto);
+  @include position(absolute, -15px, -60px, auto, auto);
   z-index: 2;
   background-color: $color-background-accent-primary;
   @include text-style($font-code-bold, $font-size-small, $color-text);

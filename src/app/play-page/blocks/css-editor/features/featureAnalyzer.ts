@@ -10,8 +10,8 @@ export class CssEditorFeatureAnalyzer {
     this.cssEditorHelp = new CssEditorHelp();
   }
 
-  listenToEnter(checkWinLevelCallback: Callback<boolean>): void {
-    this.cssEditorEnter.cleanupListeners(checkWinLevelCallback);
+  listenToEnter(checkInputValueCallback: Callback<string>): void {
+    this.cssEditorEnter.cleanupListeners(checkInputValueCallback);
     this.cssEditorEnter.pushEnterKey();
     this.cssEditorEnter.listenClickEnterButton();
   }

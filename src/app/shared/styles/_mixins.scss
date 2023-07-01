@@ -31,7 +31,7 @@
   border-radius: $border-radius;
 }
 
-@mixin absolute($position, $top, $right, $bottom, $left) {
+@mixin position($position, $top, $right, $bottom, $left) {
   position: $position;
   top: $top;
   right: $right;
