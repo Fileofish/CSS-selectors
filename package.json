@@ -12,7 +12,7 @@
     "deploy": "gh-pages -d dist"
   },
   "repository": {
-    "url": "git+https://github.com/rolling-scopes-school/fileofish-JSFE2023Q1/CSS-selectors.git"
+    "url": "git+https://github.com/fileofish/CSS-selectors.git"
   },
   "keywords": [
     "TypeScript",
