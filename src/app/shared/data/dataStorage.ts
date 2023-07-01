@@ -8,7 +8,7 @@ export class DataStorage {
     this.levelsData = levelsData;
     this.currentLevel = 0;
   }
-  currentLevelData() {
+  currentLevelData(): LevelData {
     return this.levelsData[this.currentLevel];
   }
 }

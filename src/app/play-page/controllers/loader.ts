@@ -7,7 +7,7 @@ export class Loader{
     this.dataStorage = globalDataStorage;
   }
 
-  loadDataGame() {
+  loadDataGame(): void {
     const dataSave = localStorage.getItem('CSSPrankstersData');
 
     if (dataSave !== null) {

@@ -9,7 +9,7 @@ export class CssEditorEnter {
     this.checkInputValueCallback = null;
   }
 
-  cleanupListeners(checkInputValueCallback: Callback<string>) {
+  cleanupListeners(checkInputValueCallback: Callback<string>): void {
     const enterButton = document.querySelector('.css-editor__form__button--enter');
 
     this.checkInputValueCallback = checkInputValueCallback;
@@ -27,7 +27,7 @@ export class CssEditorEnter {
     enterButton?.addEventListener('click', this.clickListener);
   }
 
-  private clickListener = () => {
+  private clickListener = (): void => {
     if (this.checkInputValueCallback) {
       const inputValue = this.checkValue();
 
@@ -35,7 +35,7 @@ export class CssEditorEnter {
     }
   };
 
-  private keydownListener = (event: KeyboardEvent) => {
+  private keydownListener = (event: KeyboardEvent): void => {
     const enterButton = document.querySelector('.css-editor__form__button--enter');
 
     if (event.key === 'Enter' && this.checkInputValueCallback) {

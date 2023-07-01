@@ -1,5 +1,5 @@
 export class Cleaner{
-  cleanGameArea(isNextLevel: boolean) {
+  cleanGameArea(isNextLevel: boolean): void {
     const gameRoomBlock = document.querySelector('.game-room__wrapper');
     const htmlViewerBlock = document.querySelector('.html-viewer');
     const levelList = document.querySelector('.level-bar__list');

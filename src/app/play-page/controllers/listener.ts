@@ -26,7 +26,7 @@ export class Listener {
     this.answerChecker = new AnswerChecker();
     this.drawGamePageCallback = null;
   }
-  listenGamePage(mode: string, drawGamePageCallback?: Callback<string>) {
+  listenGamePage(mode: string, drawGamePageCallback?: Callback<string>): void {
     if (drawGamePageCallback) this.drawGamePageCallback = drawGamePageCallback;
 
     switch (mode) {

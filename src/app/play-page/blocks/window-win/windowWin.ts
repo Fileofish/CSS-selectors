@@ -1,5 +1,5 @@
 export class WindowWin{
-  getWindowWin() {
+  getWindowWin(): DocumentFragment {
     const fragment = document.createDocumentFragment();
 
     const windowWin = this.createWindowWin();
