@@ -139,7 +139,8 @@
 }
 
 .picture-loader {
-  display: none;
+  position: absolute;
+  top: -500px;
 
   // small animals
   .racoon--small {@include background(url("./assets/img/game-room/racoon--small--active.png"));}
