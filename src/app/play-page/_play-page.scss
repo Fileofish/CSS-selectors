@@ -27,8 +27,8 @@
   background-color: $color-background;
 
   .game {
-    padding: 20px 40px 0;
-    @include width-height(72.45%, 94vh);
+    padding: 15px 40px 0;
+    @include width-height(72.45%, 100vh);
     overflow-y: scroll;
     scrollbar-color: $color-border $color-background;
 

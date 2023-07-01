@@ -12,11 +12,11 @@ export class CssRoom {
   getCssRoom(): DocumentFragment {
     const fragment = document.createDocumentFragment();
 
-    this.dataStorage.currentLevelData().gameObjects.forEach((oject) => {
-      const currentObject = this.createElement(oject);
+    this.dataStorage.currentLevelData().gameObjects.forEach((object) => {
+      const currentObject = this.createElement(object);
 
-      if (oject.child) {
-        const childObject = this.createElement(oject.child);
+      if (object.child) {
+        const childObject = this.createElement(object.child);
 
         currentObject.append(childObject);
       }
@@ -28,20 +28,20 @@ export class CssRoom {
     return fragment;
   }
   
-  private createElement(oject: GameObject): HTMLDivElement {
+  private createElement(object: GameObject): HTMLDivElement {
     const objectElement = document.createElement('div');
-    const isParent = Boolean(oject.child);
+    const isParent = Boolean(object.child);
     const isReflection = (Math.random() < 0.5 && !isParent) ? 'reflection' : 'no-reflection';
-    const attribute = (oject.attribute) ? ` ${oject.attribute}`: '';
-    const objectName = oject.type.split('--')[0];
+    const attribute = (object.attribute) ? ` ${object.attribute}`: '';
+    const objectName = object.type.split('--')[0];
 
-    objectElement.className = `css-room__obj ${oject.type} objectId${this.objectId}`;
+    objectElement.className = `css-room__obj ${object.type} objectId${this.objectId}`;
     this.objectId++;
 
     objectElement.setAttribute('data-title', `<${objectName}${attribute}></${objectName}>`);
     objectElement.classList.add(isReflection);
 
-    if (oject.active) objectElement.classList.add('animation');
+    if (object.active) objectElement.classList.add('animation');
 
     return objectElement;
   }
