@@ -1,6 +1,7 @@
 # CSS-selectors
-Deploy: https://fileofish-css-selectors.netlify.app/
 game for learning selectors in CSS.
+*********
+Deploy: https://fileofish-css-selectors.netlify.app/
 *********
 Technology stack: 
 - TypeScript
