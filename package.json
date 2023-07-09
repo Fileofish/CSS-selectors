@@ -12,16 +12,18 @@
     "deploy": "gh-pages -d dist"
   },
   "repository": {
-    "url": "git+https://github.com/fileofish/CSS-selectors.git"
+    "url": "git+https://github.com/rolling-scopes-school/fileofish-JSFE2023Q1/CSS-selectors"
   },
   "keywords": [
     "TypeScript",
     "Modules",
-    "Webpack"
+    "Webpack",
+    "Jest"
   ],
   "author": "Bukhryakov Oleg<oleg.b9113@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^29.5.2",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.59.11",
     "clean-webpack-plugin": "^4.0.0",
@@ -34,6 +36,7 @@
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.3",
     "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
     "mini-css-extract-plugin": "^2.7.6",
     "node-sass": "^9.0.0",
     "prettier": "^2.8.8",
@@ -48,7 +51,6 @@
     "webpack-merge": "^5.9.0"
   },
   "dependencies": {
-    "@types/jest": "^29.5.2",
     "ts-jest": "^29.1.1"
   }
 }

@@ -1,18 +1,14 @@
-import { DataStorage, globalDataStorage } from '../../../shared/data/dataStorage';
-import { Callback, SelectLevelCallback } from '../../../shared/types/generics';
+import { globalDataStorage } from '../../../shared/data/dataStorage';
+import { ModeLoad } from '../../../shared/types/enums';
+import { Callback, doubleCallback } from '../../../shared/types/generics';
 
 export class LevelBar{
-  private dataStorage: DataStorage;
-  private goToSelectedLevelCallback: SelectLevelCallback<number, Callback<string>> | null;
-  private drawGamePageCallback: Callback<string> | null;
-  constructor() {
-    this.dataStorage = globalDataStorage;
-    this.goToSelectedLevelCallback = null;
-    this.drawGamePageCallback = null;
-  }
+  private dataStorage = globalDataStorage;
+  private goToSelectedLevelCallback: doubleCallback<number, Callback<ModeLoad>> | null = null;
+  private drawGamePageCallback: Callback<ModeLoad> | null = null;
 
-  getLevelList(goToSelectedLevelCallback: SelectLevelCallback<number, Callback<string>>,
-    drawGamePageCallback: Callback<string>): DocumentFragment {
+  getLevelList(goToSelectedLevelCallback: doubleCallback<number, Callback<ModeLoad>>,
+    drawGamePageCallback: Callback<ModeLoad>): DocumentFragment {
     const fragment = document.createDocumentFragment();
 
     this.goToSelectedLevelCallback = goToSelectedLevelCallback;
@@ -26,7 +22,7 @@ export class LevelBar{
       const isCurrentLevel = (index === this.dataStorage.currentLevel);
 
       levelRow.className = `level level!${levelNumber}!`;
-      levelNumberText.className = `level__num level__num!${levelNumber}!`;
+      levelNumberText.className = `level__num`;
 
       if (level.isPassed || isCurrentLevel) {
         levelRow.classList.add('active');
@@ -41,8 +37,7 @@ export class LevelBar{
       levelNumberText.innerHTML = `
         ${levelNumber} <span class="level-name num!${levelNumber}!">- ${this.dataStorage.levelsData[index].hint}</span>
       `;
-      levelRow.append(iconClone);
-      levelRow.append(levelNumberText);
+      levelRow.append(iconClone, levelNumberText);
       fragment.append(levelRow);
     });
 
@@ -64,14 +59,12 @@ export class LevelBar{
 
   private selectLevel = (event: MouseEvent): void => {
     const target = event.target as Element;
-    const nameTag = target.tagName;
-    const isNotSvg = (nameTag !== 'svg');
-    const isNotSvgPath = (nameTag !== 'path');
+    const parentElement = target.closest('.level');
     
-    if (isNotSvgPath && isNotSvg && this.goToSelectedLevelCallback && this.drawGamePageCallback) {
-      const selectedLevel: number = +target.className.split('!')[1] - 1;
+    if (this.drawGamePageCallback && parentElement) {
+      const selectedLevel: number = +parentElement.className.split('!')[1] - 1;
 
-      this.goToSelectedLevelCallback(selectedLevel, this.drawGamePageCallback);
+      this.goToSelectedLevelCallback?.(selectedLevel, this.drawGamePageCallback);
     }
   };
 

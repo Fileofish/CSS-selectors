@@ -1,25 +1,19 @@
-import { DataStorage, globalDataStorage } from '../../../shared/data/dataStorage';
+import { globalDataStorage } from '../../../shared/data/dataStorage';
 import { IndexList } from '../../../shared/modules/indexList';
 import { GameObject } from '../../../shared/types/interfaces';
 
 export class HtmlViewer {
-  private dataStorage: DataStorage;
-  private indexList: IndexList;
-  private objectId: number;
-  constructor() {
-    this.dataStorage = globalDataStorage;
-    this.indexList = new IndexList();
-    this.objectId = 0;
-  }
+  private dataStorage = globalDataStorage;
+  private indexList = new IndexList();
+  private objectId = 0;
 
   getHtmlViewer(): DocumentFragment {
     const fragment = document.createDocumentFragment();
-    const indexList = this.indexList.createIndexList(true);
+    const isDarkTheme = true;
+    const indexList = this.indexList.createIndexList(isDarkTheme);
     const codeHtmlForm = this.createCodeDisplay();
 
-    fragment.append(indexList);
-    fragment.append(codeHtmlForm);
-
+    fragment.append(indexList, codeHtmlForm);
     this.objectId = 0;
     
     return fragment;
@@ -39,19 +33,20 @@ export class HtmlViewer {
       const currentCloseElement = document.createElement('p');
 
       htmlOpenDivRoom.className = htmlCloseDivRoom.className = 'HTML-editor__room';
-      currentElement.className = currentCloseElement.className = `htmlRow objectId${this.objectId}`;
-      this.objectId++;
-
+      currentElement.className = currentCloseElement.className = `htmlRow`;
+      currentElement.setAttribute('data-objectId', `${this.objectId}`);
+      currentCloseElement.setAttribute('data-objectId', `${this.objectId}`);
       codeHtmlDisplay.append(currentElement);
+      this.objectId++;
 
       if (element.child) {
         const childObject = this.createHtmlElement(element.child);
   
         currentCloseElement.textContent = `</${element.type}>`;
-        childObject.classList.add('htmlRow', `htmlRow--child`, `objectId${this.objectId}`);
+        childObject.classList.add('htmlRow', `htmlRow--child`);
+        childObject.setAttribute('data-objectId', `${this.objectId}`);
+        codeHtmlDisplay.append(childObject, currentCloseElement);
         this.objectId++;
-        codeHtmlDisplay.append(childObject);
-        codeHtmlDisplay.append(currentCloseElement);
       }
     });
     codeHtmlDisplay.append(htmlCloseDivRoom);
@@ -62,30 +57,18 @@ export class HtmlViewer {
   private createHtmlElement(element: GameObject): HTMLDivElement {
     const objectElement = document.createElement('p');
     const isParent = (element.child) ? '-parent' : '';
-    const isProperty = element.type.split('--')[1];
+    const [ objectName, isProperty ] = element.type.split('--');
     const variations = `${isProperty}${isParent}`;
-    const objectName = element.type.split('--')[0];
+    const variationElements: { [key: string]: string } = {
+      'red-parent': `<${objectName} ${element.attribute}>`,
+      'undefined-parent': `<${objectName}>`,
+      'fancy': `<${objectName} ${element.attribute} />`,
+      'red': `<${objectName} ${element.attribute}  >`,
+      'small': `<${objectName} ${element.attribute} />`,
+      'default': `<${objectName} />`
+    };
 
-    switch (variations) {
-      case 'red-parent':
-        objectElement.textContent = `<${objectName} ${element.attribute}>`;
-        break;
-      case 'undefined-parent': 
-        objectElement.textContent = `<${objectName}>`;
-        break;
-      case 'fancy':
-        objectElement.textContent = `<${objectName} ${element.attribute} />`;
-        break;
-      case 'red':
-        objectElement.textContent = `<${objectName} ${element.attribute}  >`;
-        break;
-      case 'small':
-        objectElement.textContent = `<${objectName} ${element.attribute} />`;
-        break;
-      default:
-        objectElement.textContent = `<${objectName} />`;
-        break;
-    }
+    objectElement.textContent = variationElements[variations] || variationElements['default'];
 
     return objectElement;
   }

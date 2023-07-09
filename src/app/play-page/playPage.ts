@@ -2,33 +2,51 @@ import { Viewer } from './controllers/viewer';
 import { Loader } from './controllers/loader';
 import { Listener } from './controllers/listener';
 import { LevelSelector } from './controllers/levelSelector';
+import { ModeLoad } from '../shared/types/enums';
+import { LevelController } from './controllers/levelController';
+import { Cleaner } from './controllers/cleaner';
 
 export class PlayPage {
-  private viewer: Viewer;
-  private loader: Loader;
-  private listener: Listener;
-  private levelSelector: LevelSelector;
-  constructor() {
-    this.viewer = new Viewer();
-    this.loader = new Loader();
-    this.listener = new Listener();
-    this.levelSelector = new LevelSelector();
-  }
-  drawGamePage = (mode: string): void => {
+  private viewer = new Viewer();
+  private loader = new Loader();
+  private listener = new Listener();
+  private levelSelector = new LevelSelector();
+  private levelController = new LevelController();
+  private cleaner = new Cleaner();
+
+  drawGamePage = (mode: ModeLoad): void => {
     switch (mode) {
-      case 'start':
-        this.loader.loadDataGame();
-        this.listener.listenGamePage('start', this.drawGamePage);
+      case ModeLoad.start:
+        this.initGame();
         // falls through
-      case 'load':
-        this.viewer.viewGamePage(this.levelSelector.goToSelectedLevel, this.drawGamePage);
-        this.listener.listenGamePage('load', this.drawGamePage);
+      case ModeLoad.load:
+        this.loadLevel();
         break;
-      case 'win':
-        this.viewer.viewLevelList(this.levelSelector.goToSelectedLevel, this.drawGamePage);
-        this.viewer.viewWindowWin();
-        this.listener.listenGamePage('win');
-        break;
+      case ModeLoad.win:
+        this.winGame();
     }
   };
+
+  private initGame() {
+    this.loader.loadDataGame();
+    this.listener.listenGamePage(ModeLoad.start, this.drawGamePage);
+  }
+
+  private loadLevel() {
+    const isWin = false;
+
+    this.cleaner.cleanGameArea(isWin);
+    this.viewer.viewGamePage( this.drawGamePage, this.levelSelector.goToSelectedLevel,
+      this.levelController.controlAnswer);
+    this.listener.listenGamePage(ModeLoad.load, this.drawGamePage);
+  }
+
+  private winGame() {
+    const isWin = true;
+
+    this.cleaner.cleanGameArea(isWin);
+    this.viewer.viewLevelList(this.levelSelector.goToSelectedLevel, this.drawGamePage);
+    this.viewer.viewWindowWin();
+    this.listener.listenGamePage(ModeLoad.win);
+  }
 }

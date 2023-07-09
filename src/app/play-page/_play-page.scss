@@ -32,24 +32,24 @@
     overflow-y: scroll;
     scrollbar-color: $color-border $color-background;
 
-    @include _1240 {
+    @include w_1240 {
       width: 100%
     }
 
-    .game-banner {
+    &-banner {
       @include flex(flex, auto);
 
-      .game-banner__icon {
+      &__icon {
         @include width-height(30px, 30px);
       }
 
-      .game__title {
+      &__title {
         margin: 0 0 10px 20px;
         @include text-style($font-main-heading, $font-size-header, $color-text);
       }
     }
 
-    .game-room {
+    &-room {
       @include flex(flex, center, center);
       @include width-height(100%, 200px);
       margin-bottom: 20px;
@@ -57,7 +57,7 @@
       @include background(url("./assets/img/game-room/room-bg.png"));
       @include border(5px solid $color-border, 15px);
 
-      @include _765 {height: 150px;}
+      @include w_765 {height: 150px;}
     }
 
     .code-wrapper {

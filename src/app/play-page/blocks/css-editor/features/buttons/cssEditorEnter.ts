@@ -1,57 +1,70 @@
-import { DataStorage, globalDataStorage } from '../../../../../shared/data/dataStorage';
-import { Callback } from '../../../../../shared/types/generics';
+import { globalDataStorage } from '../../../../../shared/data/dataStorage';
+import { ModeLoad } from '../../../../../shared/types/enums';
+import { Callback, doubleCallback } from '../../../../../shared/types/generics';
 
 export class CssEditorEnter {
-  private dataStorage: DataStorage;
-  private checkInputValueCallback: Callback<string> | null;
-  constructor() {
-    this.dataStorage = globalDataStorage;
-    this.checkInputValueCallback = null;
+  private dataStorage = globalDataStorage;
+  private drawGamePageCallback: (Callback<ModeLoad> | null) = null;
+  private controlAnswerCallback: (doubleCallback<string, Callback<ModeLoad>> | null) = null;
+
+  getEnterButton(drawGamePageCallback: Callback<ModeLoad>,
+    controlAnswerCallback: doubleCallback<string, Callback<ModeLoad>>): HTMLButtonElement {
+    const enterButton = document.createElement('button');
+
+    this.drawGamePageCallback = drawGamePageCallback;
+    this.controlAnswerCallback = controlAnswerCallback;
+    enterButton.className = 'css-editor__display__button css-editor__display__button--enter';
+    enterButton.innerHTML = 'Enter';
+    this.listenClickEnterButton(enterButton);
+    this.listenPushEnterKey();
+
+    return enterButton;
   }
 
-  cleanupListeners(checkInputValueCallback: Callback<string>): void {
-    const enterButton = document.querySelector('.css-editor__form__button--enter');
-
-    this.checkInputValueCallback = checkInputValueCallback;
+  cleanupListeners(): void {
+    const enterButton = document.querySelector('.css-editor__display__button--enter');
+    
     document.removeEventListener('keydown', this.keydownListener);
+    document.removeEventListener('keyup', this.keyupListener);
     enterButton?.removeEventListener('click', this.clickListener);
   }
 
-  pushEnterKey() {
+  private listenPushEnterKey() {
     document.addEventListener('keydown', this.keydownListener);
+    document.addEventListener('keyup', this.keyupListener);
   }
 
-  listenClickEnterButton() {
-    const enterButton = document.querySelector('.css-editor__form__button--enter');
-
+  private listenClickEnterButton(enterButton: HTMLButtonElement) {
     enterButton?.addEventListener('click', this.clickListener);
   }
 
   private clickListener = (): void => {
-    if (this.checkInputValueCallback) {
-      const inputValue = this.checkValue();
+    if (this.drawGamePageCallback && this.controlAnswerCallback) {
+      const inputValue = this.getCheckedValue();
 
-      this.checkInputValueCallback(inputValue);
+      this.controlAnswerCallback(inputValue, this.drawGamePageCallback);
     }
   };
 
   private keydownListener = (event: KeyboardEvent): void => {
-    const enterButton = document.querySelector('.css-editor__form__button--enter');
+    const enterButton = document.querySelector('.css-editor__display__button--enter');
 
-    if (event.key === 'Enter' && this.checkInputValueCallback) {
-      const inputValue = this.checkValue();
+    if (event.key === 'Enter' && this.drawGamePageCallback && this.controlAnswerCallback) {
+      const inputValue = this.getCheckedValue();
 
       enterButton?.classList.add('active');
-      setTimeout(() => {
-        enterButton?.classList.remove('active');
-      }, 150);
-
-      this.checkInputValueCallback(inputValue);
-    } 
+      this.controlAnswerCallback(inputValue, this.drawGamePageCallback);
+    }
   };
 
-  private checkValue(): string {
-    const gameInput = document.querySelector('.css-editor__form__input') as HTMLInputElement;
+  private keyupListener(event: KeyboardEvent) {
+    const enterButton = document.querySelector('.css-editor__display__button--enter');
+
+    if (event.key === 'Enter') enterButton?.classList.remove('active');
+  }
+
+  private getCheckedValue(): string {
+    const gameInput = document.querySelector('.css-editor__display__input') as HTMLInputElement;
     const inputValue = gameInput?.value.trim() as string;
     const isWinCondition = this.dataStorage.currentLevelData().winCondition.includes(inputValue);
     const completedLevelsCount = this.dataStorage.levelsData.filter((level) => level.isPassed).length;

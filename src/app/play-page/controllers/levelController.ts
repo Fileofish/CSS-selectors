@@ -1,47 +1,41 @@
-import { DataStorage, globalDataStorage } from '../../shared/data/dataStorage';
+import { globalDataStorage } from '../../shared/data/dataStorage';
+import { AnswerMode, ModeLoad } from '../../shared/types/enums';
 import { Callback } from '../../shared/types/generics';
-import { Cleaner } from './cleaner';
 import { LevelSelector } from './levelSelector';
 
-export class AnswerChecker{
-  private dataStorage: DataStorage;
-  private cleaner: Cleaner;
-  private levelSelector: LevelSelector;
-  constructor() {
-    this.dataStorage = globalDataStorage;
-    this.cleaner = new Cleaner();
-    this.levelSelector = new LevelSelector();
-  }
+export class LevelController{
+  private dataStorage = globalDataStorage;
+  private levelSelector = new LevelSelector();
 
-  controlAnswer(inputValue: string, drawGamePage: Callback<string>): void {
+  controlAnswer = (inputValue: string, drawGamePage: Callback<ModeLoad>): void => {
     const commandInputValue = inputValue.split(' ');
     let numSelectedLevel = 0;
-
+    
     if (commandInputValue[1]) {
       numSelectedLevel = +commandInputValue[1];
     }
 
     const condition = (commandInputValue[0] === 'win'
-      && this.dataStorage.currentLevel === this.dataStorage.levelsData.length - 1) ? 'win'
-      : (commandInputValue[0] === 'win') ? 'nextLevel'
-      : (commandInputValue[0] === 'goToLevel' && numSelectedLevel) ? 'goToLevel'
-      : 'wrong';
+        && this.dataStorage.currentLevel === this.dataStorage.levelsData.length - 1) ? AnswerMode.win :
+      (commandInputValue[0] === 'win') ? AnswerMode.nextLevel :
+      (commandInputValue[0] === 'goToLevel' && numSelectedLevel) ? AnswerMode.goToLevel :
+      AnswerMode.wrong;
 
     switch (condition) {
-      case 'nextLevel':
+      case AnswerMode.nextLevel:
         this.goNextLevel(drawGamePage);
         break;
-      case 'wrong':
+      case AnswerMode.wrong:
         this.shakeScreen();
         break;
-      case 'win':
+      case AnswerMode.win:
         this.winGame(drawGamePage);
         break;
-      case 'goToLevel':
+      case AnswerMode.goToLevel:
         this.levelSelector.goToSelectedLevel(numSelectedLevel - 1, drawGamePage);
         break;
     }
-  }
+  };
   
   private shakeScreen(): void {
     const displayCode = document.querySelector('.code-wrapper');
@@ -52,7 +46,7 @@ export class AnswerChecker{
     }, 200);
   }
 
-  private goNextLevel(drawGamePage: Callback<string>): void {
+  private goNextLevel(drawGamePage: Callback<ModeLoad>): void {
     const animatedObjects = document.querySelectorAll('.animation');
 
     animatedObjects.forEach((object) => {
@@ -64,12 +58,11 @@ export class AnswerChecker{
     this.dataStorage.levelsData[this.dataStorage.currentLevel + 1].isPassed = true;
     this.dataStorage.currentLevel++;
     setTimeout(() => {
-      this.cleaner.cleanGameArea(true);
-      drawGamePage('load');
+      drawGamePage(ModeLoad.load);
     }, 500);
   }
 
-  private winGame(drawGamePage: Callback<string>): void {
+  private winGame(drawGamePage: Callback<ModeLoad>): void {
     const animatedObjects = document.querySelectorAll('.animation');
     const roomObjects = document.querySelectorAll('.css-room__obj');
     const happyObjects = ['I love you!😍', '...', `You're the best!🥳`, 'Nevermind...😒', 
@@ -81,7 +74,6 @@ export class AnswerChecker{
     roomObjects.forEach((object, index) => {
       object.setAttribute('data-title', happyObjects[index]);
     });
-    this.cleaner.cleanGameArea(false);
-    drawGamePage('win');
+    drawGamePage(ModeLoad.win);
   }
 }

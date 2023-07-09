@@ -1,31 +1,25 @@
-import { Callback, SelectLevelCallback } from '../../shared/types/generics';
+import { Callback, doubleCallback } from '../../shared/types/generics';
 import { CssEditor } from '../blocks/css-editor/css-editor';
 import { HtmlViewer } from '../blocks/html-viewer/htmlViewer';
 import { CssRoom } from '../blocks/css-room/css-room';
 import { LevelBar } from '../blocks/level-bar/levelBar';
 import { WindowWin } from '../blocks/window-win/windowWin';
+import { ModeLoad } from '../../shared/types/enums';
 
 export class Viewer {
-  private cssRoom: CssRoom;
-  private cssEditor: CssEditor;
-  private htmlViewer: HtmlViewer;
-  private levelBar: LevelBar;
-  private windowWin: WindowWin;
-  constructor() {
-    this.cssRoom = new CssRoom();
-    this.cssEditor = new CssEditor();
-    this.htmlViewer = new HtmlViewer();
-    this.levelBar = new LevelBar();
-    this.windowWin = new WindowWin();
-  }
+  private cssRoom = new CssRoom();
+  private cssEditor = new CssEditor();
+  private htmlViewer = new HtmlViewer();
+  private levelBar = new LevelBar();
+  private windowWin = new WindowWin();
 
-  viewGamePage(goToSelectedLevelCallback: SelectLevelCallback<number, Callback<string>>,
-    drawGamePageCallback: Callback<string>): void {
+  viewGamePage(drawGamePageCallback: Callback<ModeLoad>,
+    goToSelectedLevelCallback: doubleCallback<number, Callback<ModeLoad>>,
+    controlAnswerCallback: doubleCallback<string, Callback<ModeLoad>>): void {
     this.viewCssRoom();
-    this.viewCssEditor();
+    this.viewCssEditor(drawGamePageCallback, controlAnswerCallback);
     this.viewHtmlViewer();
     this.viewLevelList(goToSelectedLevelCallback, drawGamePageCallback);
-    this.levelBar.createDescriptionWindow();
   }
 
   private viewCssRoom(): void {
@@ -38,14 +32,13 @@ export class Viewer {
     pictureLoader?.append(cloneGameRoomFragment);
   }
 
-  private viewCssEditor(): void {
+  private viewCssEditor(drawGamePageCallback: Callback<ModeLoad>,
+    controlAnswerCallback: doubleCallback<string, Callback<ModeLoad>>): void {
     const cssEditorBlock = document.querySelector('.css-editor');
-    const cssEditorFragment = this.cssEditor.getCssEditor();
+    const cssEditorFragment = this.cssEditor.getCssEditor(drawGamePageCallback, controlAnswerCallback);
+    const codeInput = document.querySelector('.css-editor__display__input') as HTMLInputElement;
 
     cssEditorBlock?.append(cssEditorFragment);
-
-    const codeInput = document.querySelector('.css-editor__form__input') as HTMLInputElement;
-
     codeInput?.focus();
   }
 
@@ -56,12 +49,13 @@ export class Viewer {
     htmlViewerBlock?.append(htmlViewerFragment);
   }
 
-  viewLevelList(goToSelectedLevelCallback: SelectLevelCallback<number, Callback<string>>,
-    drawGamePageCallback: Callback<string>): void {
+  viewLevelList(goToSelectedLevelCallback: doubleCallback<number, Callback<ModeLoad>>,
+    drawGamePageCallback: Callback<ModeLoad>): void {
     const levelListElement = document.querySelector('.level-bar__list');
     const levelListFragment = this.levelBar.getLevelList(goToSelectedLevelCallback, drawGamePageCallback);
 
     levelListElement?.append(levelListFragment);
+    this.levelBar.createDescriptionWindow();
   }
 
   viewWindowWin = (): void => {

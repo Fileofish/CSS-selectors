@@ -1,13 +1,9 @@
-import { DataStorage, globalDataStorage } from '../../../shared/data/dataStorage';
+import { globalDataStorage } from '../../../shared/data/dataStorage';
 import { GameObject } from '../../../shared/types/interfaces';
 
 export class CssRoom {
-  private dataStorage: DataStorage;
-  private objectId: number;
-  constructor() {
-    this.dataStorage = globalDataStorage;
-    this.objectId = 0;
-  }
+  private dataStorage = globalDataStorage;
+  private objectId = 0;
 
   getCssRoom(): DocumentFragment {
     const fragment = document.createDocumentFragment();
@@ -34,13 +30,15 @@ export class CssRoom {
     const attribute = (object.attribute) ? ` ${object.attribute}`: '';
     const objectName = object.type.split('--')[0];
 
-    objectElement.className = `css-room__obj ${object.type} objectId${this.objectId}`;
-    this.objectId++;
-
+    objectElement.className = `css-room__obj ${object.type}`;
+    objectElement.setAttribute('data-objectId', `${this.objectId}`);
     objectElement.setAttribute('data-title', `<${objectName}${attribute}></${objectName}>`);
     objectElement.classList.add(isReflection);
+    this.objectId++;
 
     if (object.active) objectElement.classList.add('animation');
+    objectElement.classList.add('appearance');
+    setTimeout(() => objectElement.classList.remove('appearance'), 500);
 
     return objectElement;
   }

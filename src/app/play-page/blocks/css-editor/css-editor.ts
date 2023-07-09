@@ -1,56 +1,45 @@
 import { IndexList } from '../../../shared/modules/indexList';
+import { ModeLoad } from '../../../shared/types/enums';
+import { Callback, doubleCallback } from '../../../shared/types/generics';
+import { CssEditorEnter } from './features/buttons/cssEditorEnter';
+import { CssEditorHelp } from './features/buttons/cssEditorHelp';
+import { CssEditorInput } from './features/inputs/cssEditorInput';
 
 export class CssEditor {
-  private indexList: IndexList;
-  constructor() {
-    this.indexList = new IndexList();
-  }
+  private indexList = new IndexList();
+  private cssEditorEnter = new CssEditorEnter();
+  private cssEditorHelp = new CssEditorHelp();
+  private cssEditorInput = new CssEditorInput();
   
-  getCssEditor(): DocumentFragment {
+  getCssEditor(drawGamePageCallback: Callback<ModeLoad>,
+    controlAnswerCallback: doubleCallback<string, Callback<ModeLoad>>): DocumentFragment {
     const fragment = document.createDocumentFragment();
-    const indexList = this.indexList.createIndexList(false);
-    const codeCssForm = this.createCodeForm();
+    const isDarkTheme = false;
+    const indexList = this.indexList.createIndexList(isDarkTheme);
+    const codeCssForm = this.createCodeForm(drawGamePageCallback, controlAnswerCallback);
 
-    fragment.append(indexList);
-    fragment.append(codeCssForm);
+    fragment.append(indexList, codeCssForm);
 
     return fragment;
   }
 
-  private createCodeForm(): HTMLDivElement {
-    const codeCssForm = document.createElement('div');
-    const codeInput = document.createElement('input');
-    const enterButton = document.createElement('button');
-    const cssFormWrapper = document.createElement('div');
+  private createCodeForm(drawGamePageCallback: Callback<ModeLoad>,
+    controlAnswerCallback: doubleCallback<string, Callback<ModeLoad>>): HTMLDivElement {
+    const codeCssDisplay = document.createElement('div');
+    const cssDisplayWrapper = document.createElement('div');
     const inputInfo = document.createElement('p');
-    const helpButton = document.createElement('button');
+    const codeInput = this.cssEditorInput.getCodeInput();
+    const enterButton = this.cssEditorEnter.getEnterButton(drawGamePageCallback, controlAnswerCallback);
+    const helpButton = this.cssEditorHelp.getHelpButton();
 
-    codeCssForm.className = 'css-editor__form';
-    codeInput.className = 'css-editor__form__input active';
-    codeInput.type = 'text';
-    codeInput.setAttribute('autofocus', 'autofocus');
-    codeInput.placeholder = 'Type in a CSS selector';
-    codeCssForm.append(codeInput);
-    enterButton.className = 'css-editor__form__button css-editor__form__button--enter';
-    enterButton.innerHTML = 'Enter';
-    codeCssForm.append(enterButton);
-    cssFormWrapper.className = 'css-editor__form__wrapper';
-    codeCssForm.append(cssFormWrapper);
-    inputInfo.className = 'css-editor__form__info';
+    codeCssDisplay.className = 'css-editor__display';
+    cssDisplayWrapper.className = 'css-editor__display__wrapper';
+    codeCssDisplay.append(codeInput, enterButton, cssDisplayWrapper);
+    inputInfo.className = 'css-editor__display__info';
     inputInfo.innerHTML = `{<br>/* Styles would go here. */<br>}<br><br>/*<br>
       Type a number to skip to a level.<br>Ex → "3" for level 3<br>*/`;
-    cssFormWrapper.append(inputInfo);
-    helpButton.className = 'css-editor__form__button css-editor__form__button--help';
-    helpButton.innerHTML = 'Help';
-    cssFormWrapper.append(helpButton);
-    codeInput.oninput = () => {
-      if (codeInput.value === '') {
-        codeInput.classList.add('active');
-      } else {
-        codeInput.classList.remove('active');
-      }
-    };
+    cssDisplayWrapper.append(inputInfo, helpButton);
 
-    return codeCssForm;
+    return codeCssDisplay;
   }
 }

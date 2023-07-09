@@ -2,7 +2,7 @@
   display: none;
   @include position(absolute, 0, 0, auto, auto);
 
-  @include _1240 {
+  @include w_1240 {
     display: block;
     z-index: 6;
   }
@@ -23,7 +23,7 @@
 
   .level-bar__burger-button.active {
 
-    @include _1240 {
+    @include w_1240 {
       padding: 19px 115px 6px 20px;
       background-color: $color-background-alt-secondary;
       box-shadow: none;
@@ -46,37 +46,37 @@
   background-color: $color-background-secondary;
   border-left: 2px solid $color-border;
 
-  @include _1240 {
+  @include w_1240 {
     display: none;
     width: 22%;
   }
-  @include _1185 {width: 24%;}
-  @include _1080 {width: 26%;}
-  @include _1000 {width: 28%;}
-  @include _925 {width: 30%;}
-  @include _865 {width: 32%;}
-  @include _810 {width: 34%;}
-  @include _765 {width: 36%;}
-  @include _720 {width: 38%;}
-  @include _685 {width: 40%;}
-  @include _650 {width: 42%;}
-  @include _620 {width: 44%;}
-  @include _590 {width: 46%;}
-  @include _565 {width: 48%;}
-  @include _540 {width: 50%;}
-  @include _520 {width: 52%;}
+  @include w_1185 {width: 24%;}
+  @include w_1080 {width: 26%;}
+  @include w_1000 {width: 28%;}
+  @include w_925 {width: 30%;}
+  @include w_865 {width: 32%;}
+  @include w_810 {width: 34%;}
+  @include w_765 {width: 36%;}
+  @include w_720 {width: 38%;}
+  @include w_685 {width: 40%;}
+  @include w_650 {width: 42%;}
+  @include w_620 {width: 44%;}
+  @include w_590 {width: 46%;}
+  @include w_565 {width: 48%;}
+  @include w_540 {width: 50%;}
+  @include w_520 {width: 52%;}
 
-  .level-bar__wrapper {
+  &__wrapper {
     padding-top: 20px;
     height: 100%;
     overflow-y: scroll;
   }
 
-  .level-bar__second-wrapper {
+  &__second-wrapper {
     padding-right: 20px;
   }
 
-  .level-bar__title-wrapper {
+  &__title-wrapper {
     @include flex(flex);
     margin-bottom: 7px;
 
@@ -85,8 +85,7 @@
     }
   
     .level-bar__description-button {
-      margin-right: 20px;
-      padding: 2px;
+      @include padding-margin(2px, 0 20px 0 0);
       @include width-height(31px, 31px);
       fill: $color-text;
       background-color: $color-background-secondary;
@@ -110,33 +109,33 @@
     border-bottom: 1px solid $color-border;
     transition: 1s all;
 
-    .window-description__wrapper {
+    &__wrapper {
       display: none;
+    }
 
-      .window-description__title {
-        @include text-style($font-primary-bold, $font-size-medium, $color-text);
-      }
+    &__title {
+      @include text-style($font-primary-bold, $font-size-medium, $color-text);
+    }
 
-      .window-description__hint {
+    &__hint {
+      display: inline-block;
+      @include padding-margin(0 7px, 0 0 3px 0);
+      background-color: $color-background-alt-secondary;
+      @include text-style($font-primary-bold, $font-size-medium, $color-text-accent);
+    }
+
+    &__description {
+      @include text-style($font-primary-regular, $font-size-small, $color-text);
+
+      .high {
         display: inline-block;
-        @include padding-margin(0 7px, 0 0 3px 0);
+        padding: 0 3px;
+        @include text-style($font-primary-bold, $font-size-small, $color-text-accent);
         background-color: $color-background-alt-secondary;
-        @include text-style($font-primary-bold, $font-size-medium, $color-text-accent);
-      }
-  
-      .window-description__description {
-        @include text-style($font-primary-regular, $font-size-small, $color-text);
-  
-        .high {
-          display: inline-block;
-          padding: 0 3px;
-          @include text-style($font-primary-bold, $font-size-small, $color-text-accent);
-          background-color: $color-background-alt-secondary;
-        }
       }
     }
 
-    .window-description__wrapper.active {
+    &__wrapper.active {
       display: block;
     }
   }
@@ -157,14 +156,14 @@
       cursor: no-drop;
       transition: all 0.3s;
   
-      .level__icon-paws {
+      &__icon-paws {
         @include width-height(20px, 20px);
         margin-right: 10px;
         display: inline-block;
         fill: #7e7f71;
       }
 
-      .level-name {
+      &-name {
         @include text-style($font-primary-regular, $font-size-medium, $color-text)
       }
     }
@@ -225,14 +224,14 @@
 
 .level-bar.active {
 
-  @include _1240 {
+  @include w_1240 {
     display: block;
     z-index: 5;
   }
 
   .level-bar__title.off {
 
-    @include _1240 {
+    @include w_1240 {
       display: none;
     }
   

@@ -1,4 +1,4 @@
-.css-editor__form {
+.css-editor__display {
   @include flex(flex, space-between, baseline);
   align-content: flex-start;
   flex-wrap: wrap;
@@ -6,13 +6,13 @@
   padding: 4px 10px;
   background-color: $color-background-alt-secondary;
 
-  @include _650 {
+  @include w_650 {
     justify-content: flex-start;
     flex-wrap: wrap;
     flex-direction: column;
   }
 
-  .css-editor__form__input {
+  &__input {
     padding: 2px;
     width: 80%;
     margin-right: 10px;
@@ -22,67 +22,67 @@
     @include border(none, 0);
     transition: all 1s;
 
-    @include _1000 {width: 70%;}
-    @include _720 {
+    @include w_1000 {width: 70%;}
+    @include w_720 {
       width: 65%;
       font-size: 14px;
     }
-    @include _650 {width: 100%;}
+    @include w_650 {width: 100%;}
   }
 
-  .css-editor__form__input.active {
+  &__input.active {
     animation: blinking 1s;
     animation-iteration-count: infinite;
   }
 
-  .css-editor__form__button {
+  &__button {
     @include button($color-background-accent-secondary, $font-code, $font-size-small, $color-text, 2px 15px, 0, 1px solid $color-border, 0 4px 0 $color-border);
 
-    @include _650 {
+    @include w_650 {
       margin-top: 5px;
       width: 100%;
     }
   }
 
-  .css-editor__form__button.active,
-  .css-editor__form__button:active {
+  &__button.active,
+  &__button:active {
     @include button-active($color-background-alt-secondary, $color-text, 0 2px 0 $color-border, translateY(1px));
   }
   
-  .css-editor__form__input:focus {
+  &__input:focus {
     outline: none;
   }
 
-  .css-editor__form__wrapper {
+  &__wrapper {
     width: 100%;
     @include flex(flex, space-between, flex-start);
 
-    @include _650 {
+    @include w_650 {
       flex-direction: column-reverse;
     }
+  }
 
-    .css-editor__form__info {
-      @include text-style($font-code, $font-size-small, $color-text-accent);
-      line-height: 19.9px;
-      letter-spacing: 1.5px;
+  &__info {
+    @include text-style($font-code, $font-size-small, $color-text-accent);
+    line-height: 19.9px;
+    letter-spacing: 1.5px;
 
-      @include _810 {
-        font-size: 12px;
-      }
-      @include _720 {
-        font-size: 10px;
-      }
+    @include w_810 {
+      font-size: 12px;
     }
+    @include w_720 {
+      font-size: 10px;
+    }
+  }
 
-    .css-editor__form__button--help {
-      width: 65.56px;
-      margin-top: 10px;
-      color: $color-text-accent;
+  &__button--help {
+    width: 65.56px;
+    margin-top: 10px;
+    color: $color-text-accent;
 
-      @include _650 {
-        margin-bottom: 4px;
-        width: 100%;
-      }
+    @include w_650 {
+      margin-bottom: 4px;
+      width: 100%;
     }
   }
 }

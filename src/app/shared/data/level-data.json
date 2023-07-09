@@ -2,7 +2,7 @@
   {
     "isPassed": true,
     "isHint": false,
-    "winCondition": ["#inCap"],
+    "winCondition": ["#inCap", "gray-cat:first-child"],
     "header": "Select the gray cat in a cap",
     "hint": "#id",
     "description": "Select element with the id <span class='high'>inCap</span>",
