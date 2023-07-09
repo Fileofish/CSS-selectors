@@ -98,7 +98,7 @@
   {
     "isPassed": false,
     "isHint": false,
-    "winCondition": ["white-cat.small"],
+    "winCondition": ["white-cat.cub"],
     "header": "Select the small white cats",
     "hint": "A.className",
     "description": "You can combine the class selector with other selectors, like the type selector.",
