@@ -121,7 +121,7 @@
     "isHint": false,
     "winCondition": ["armchair gray-cat.cub", "armchair .cub"],
     "header": "Select the cubs gray cats in the armchairs",
-    "hint": "Put your back into it!",
+    "hint": "Try yourself!",
     "description": "Combine what you learned in the last few levels to solve this one!",
     "gameObjects": [
       {"type": "armchair", "active": false, "child": {
