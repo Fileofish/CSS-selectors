@@ -7,6 +7,10 @@
     z-index: 6;
   }
 
+  @include w_865 {
+    display: none;
+  }
+
   .level-bar__burger-button {
     padding: 5px 60px;
     @include text-style($font-main-heading, $font-size-header, $color-text);
