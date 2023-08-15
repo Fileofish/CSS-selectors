@@ -116,6 +116,11 @@
   @include w_865 {
     @include flex(flex, center, center);
   }
+
+  &__content {
+    max-width: 300px;
+    margin: 20px;
+  }
 }
 
 @keyframes shake {
