@@ -50,6 +50,10 @@
       border-radius: 15px;
       padding: 10px;
 
+      @include w_1240 {
+        margin-top: 30px;
+      }
+
       &__logo {
         @include flex(flex, auto);
         margin-right: 10px;
