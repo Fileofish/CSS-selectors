@@ -1,4 +1,6 @@
-* {@include padding-margin(0, 0);}
+* {
+  @include padding-margin(0, 0);
+}
 
 /* Firefox */
 * {
@@ -32,26 +34,58 @@
     overflow-y: scroll;
     scrollbar-color: $color-border $color-background;
 
-    .game-banner {
-      @include flex(flex, auto);
+    @include w_1240 {
+      width: 100%;
+    }
 
-      .game-banner__icon {
-        @include width-height(30px, 30px);
+    @include w_865 {
+      display: none;
+    }
+
+    &-banner {
+      @include flex(flex, space-between, center);
+      flex-direction: row-reverse;
+      margin-bottom: 15px;
+      background-color: $color-background-alt-secondary;
+      border-radius: 15px;
+      padding: 10px;
+
+      @include w_1240 {
+        margin-top: 30px;
       }
 
-      .game__title {
-        margin: 0 0 10px 20px;
+      &__logo {
+        @include flex(flex, auto);
+        margin-right: 10px;
+      }
+
+      &__icon {
+        @include width-height(30px, 30px);
+        margin-right: 10px;
+      }
+
+      &__title {
         @include text-style($font-main-heading, $font-size-header, $color-text);
+      }
+
+      &__rule {
+        @include text-style($font-code-bold, $color-border, $color-text);
+        margin-left: 15px;
+        letter-spacing: 1px
       }
     }
 
-    .game-room {
+    &-room {
       @include flex(flex, center, center);
       @include width-height(100%, 200px);
       margin-bottom: 20px;
       box-sizing: border-box;
-      @include background(url("./assets/img/game-room/room-bg.png"));
+      @include background(url('./assets/img/game-room/room-bg.png'));
       @include border(5px solid $color-border, 15px);
+
+      @include w_765 {
+        height: 150px;
+      }
     }
 
     .code-wrapper {
@@ -77,25 +111,59 @@
       @include flex(flex, center, center);
       flex-direction: column;
       text-align: center;
-      @include background(url("./assets/img/win-bg.png"));
+      @include background(url('./assets/img/win-bg.png'));
     }
   }
 
   .game::-webkit-scrollbar {
     background-color: $color-background;
   }
-  
+
   .game::-webkit-scrollbar-track {
     background-color: $color-background;
   }
 }
 
+.mobile-warning {
+  @include text-style($font-code-bold, $font-size-header, #fff);
+  display: none;
+  text-align: center;
+  background-color: $color-background-alt;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
 
+  @include w_865 {
+    @include flex(flex, center, center);
+    flex-direction: column;
+  }
+
+  &__content {
+    max-width: 300px;
+    margin: 10px 20px;
+    letter-spacing: 1.5px;
+    line-height: 1.5;
+  }
+}
 
 @keyframes shake {
-  from {transform: translateX(0);}
-  25% {transform: translateX(-5px);}
-  50% {transform: translateX(0);}
-  75% {transform: translateX(5px);}
-  to {transform: translateX(0);}
+  from {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  to {
+    transform: translateX(0);
+  }
 }

@@ -1,8 +1,6 @@
 export class IndexList {
-  private rowCount: number;
-  constructor() {
-    this.rowCount = 15;
-  }
+  private rowCount = 15;
+
   createIndexList(isDarkTheme: boolean): HTMLUListElement {
     const indexList = document.createElement('ul');
 

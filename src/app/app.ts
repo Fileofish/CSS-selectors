@@ -1,12 +1,10 @@
 import { PlayPage } from './play-page/playPage';
+import { ModeLoad } from './shared/types/enums';
 
 export class App {
-  private playPage: PlayPage;
-  constructor() {
-    this.playPage = new PlayPage();
-  }
+  private playPage = new PlayPage();
 
   start(): void {
-    this.playPage.drawGamePage('start');
+    this.playPage.drawGamePage(ModeLoad.start);
   }
 }

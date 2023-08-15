@@ -5,14 +5,57 @@
   @include text-style($font-code-bold, $font-size-medium, $color-background-accent-primary);
   letter-spacing: 1px;
 
+  @include w_650 {
+    padding: 6px 5px;
+  }
+
+  .HTML-editor__room {
+
+    @include w_650 {
+      font-size: 14px;
+      margin-top: 3px;
+    }
+
+    @include w_590 {
+      font-size: 12px;
+    }
+
+    @include w_540 {
+      margin-top: 7.3px;
+      font-size: 10px;
+    }
+
+  }
+
   .htmlRow,
   .htmlRow--child {
     margin-top: 0.3px;
     cursor: default;
+
+    @include w_650 {
+      margin-top: 3px;
+    }
+
   }
 
   .htmlRow {
     margin-left: 20px;
+
+    @include w_650 {
+      font-size: 14px;
+      margin-left: 10px;
+    }
+
+    @include w_590 {
+      margin-top: 5px;
+      font-size: 12px;
+    }
+
+    @include w_540 {
+      margin-top: 8px;
+      font-size: 10px;
+    }
+
   }
 
   .htmlRow.active {
@@ -21,5 +64,10 @@
 
   .htmlRow--child {
     margin-left: 40px;
+
+    @include w_650 {
+      margin-left: 20px;
+    }
+
   }
 }

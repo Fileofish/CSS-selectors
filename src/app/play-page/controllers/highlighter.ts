@@ -1,8 +1,5 @@
 export class Highlighter{
-  private hoverElements: Element[];
-  constructor() {
-    this.hoverElements = [];
-  }
+  private hoverElements: Element[] = [];
 
   listenToHighLight(): void {
     const objectsArr = document.querySelectorAll('.css-room__obj');
@@ -37,10 +34,8 @@ export class Highlighter{
   };
   
   private addHighlight(target: HTMLElement): void {
-    const targetId = target.className.split('Id')[1][0];
-    const targetClass = `objectId${targetId}`;
-
-    const targetObjs = document.querySelectorAll(`.${targetClass}`);
+    const targetId = target.getAttribute('data-objectId');
+    const targetObjs = document.querySelectorAll(`[data-objectId = "${targetId}"]`);
 
     targetObjs.forEach((elem) => {
       elem.classList.add('active');
@@ -48,10 +43,8 @@ export class Highlighter{
   }
 
   private removeHighlight(target: HTMLElement): void {
-    const targetId = target.className.split('Id')[1][0];
-    const targetClass = `objectId${targetId}`;
-
-    const targetObjs = document.querySelectorAll(`.${targetClass}`);
+    const targetId = target.getAttribute('data-objectId');
+    const targetObjs = document.querySelectorAll(`[data-objectId="${targetId}"]`);
 
     targetObjs.forEach((elem) => {
       elem.classList.remove('active');

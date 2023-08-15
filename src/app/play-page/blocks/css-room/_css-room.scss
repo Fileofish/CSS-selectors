@@ -12,6 +12,12 @@
 .white-cat--small {
   @include width-height(60px, 60px);
   z-index: 1;
+
+  @include w_1000 {@include width-height(50px, 50px);}
+  @include w_865 {@include width-height(40px, 40px);}
+  @include w_765 {@include width-height(30px, 30px);}
+  @include w_650 {@include width-height(25px, 25px);}
+  @include w_540 {@include width-height(22px, 22px);}
 }
 
 .racoon--fancy,
@@ -22,6 +28,12 @@
   @include width-height(100px, 100px);
   margin: 5px;
   z-index: 1;
+
+  @include w_1000 {@include width-height(80px, 80px);}
+  @include w_865 {@include width-height(65px, 65px);}
+  @include w_765 {@include width-height(50px, 50px);}
+  @include w_650 {@include width-height(35px, 35px);}
+  @include w_540 {@include width-height(33px, 33px);}
 }
 
 .carpet--red,
@@ -30,33 +42,77 @@
   @include flex(flex, center, center);
   @include width-height(180px, 180px);
   z-index: 0;
+
+  @include w_1000 {@include width-height(160px, 160px);}
+  @include w_865 {@include width-height(140px, 140px);}
+  @include w_765 {@include width-height(120px, 120px);}
+  @include w_650 {@include width-height(100px, 100px);}
+  @include w_540 {@include width-height(80px, 80px);}
 }
 
-// small animals
-.racoon--small  {@include background(url("./assets/img/game-room/racoon--small.png"));}
-.racoon--small.active {@include background(url("./assets/img/game-room/racoon--small--active.png"));}
-.gray-cat--small  {@include background(url("./assets/img/game-room/gray-cat--small.png"));}
-.gray-cat--small.active {@include background(url("./assets/img/game-room/gray-cat--small--active.png"));}
-.white-cat--small  {@include background(url("./assets/img/game-room/white-cat--small.png"));}
-.white-cat--small.active {@include background(url("./assets/img/game-room/white-cat--small--active.png"));}
-// normal animals
-.racoon  {@include background(url("./assets/img/game-room/racoon.png"));}
-.racoon.active {@include background(url("./assets/img/game-room/racoon--active.png"));}
-.racoon--fancy {@include background(url("./assets/img/game-room/racoon--fancy.png"));}
-.racoon--fancy.active {@include background(url("./assets/img/game-room/racoon--fancy--active.png"));}
-.gray-cat  {@include background(url("./assets/img/game-room/gray-cat.png"));}
-.gray-cat.active {@include background(url("./assets/img/game-room/gray-cat--active.png"));}
-.gray-cat--fancy  {@include background(url("./assets/img/game-room/gray-cat--fancy.png"));}
-.gray-cat--fancy.active {@include background(url("./assets/img/game-room/gray-cat--fancy--active.png"));}
-.white-cat  {@include background(url("./assets/img/game-room/white-cat.png"));}
-.white-cat.active {@include background(url("./assets/img/game-room/white-cat--active.png"));}
-// furniture
-.armchair {@include background(url("./assets/img/game-room/armchair.png"));}
-.armchair.active {@include background(url("./assets/img/game-room/armchair--active.png"));}
-.carpet {@include background(url("./assets/img/game-room/carpet.png"));}
-.carpet.active {@include background(url("./assets/img/game-room/carpet--active.png"));}
-.carpet--red {@include background(url("./assets/img/game-room/carpet--red.png"));}
-.carpet--red.active {@include background(url("./assets/img/game-room/carpet--red--active.png"));}
+$animals: (
+  racoon--small: "racoon--small.png",
+  gray-cat--small: "gray-cat--small.png",
+  white-cat--small: "white-cat--small.png",
+  racoon: "racoon.png",
+  racoon--fancy: "racoon--fancy.png",
+  gray-cat: "gray-cat.png",
+  gray-cat--fancy: "gray-cat--fancy.png",
+  white-cat: "white-cat.png",
+);
+
+$animals-active: (
+  racoon--small: "racoon--small--active.png",
+  gray-cat--small: "gray-cat--small--active.png",
+  white-cat--small: "white-cat--small--active.png",
+  racoon: "racoon--active.png",
+  racoon--fancy: "racoon--fancy--active.png",
+  gray-cat: "gray-cat--active.png",
+  gray-cat--fancy: "gray-cat--fancy--active.png",
+  white-cat: "white-cat--active.png",
+);
+
+$furnitures: (
+  armchair: "armchair.png",
+  carpet: "carpet.png",
+  carpet--red: "carpet--red.png",
+);
+
+$furnitures-active: (
+  armchair: "armchair--active.png",
+  carpet: "carpet--active.png",
+  carpet--red: "carpet--red--active.png",
+);
+
+@each $animal, $image in $animals {
+  .#{$animal} {
+    background: url("./assets/img/game-room/#{$image}");
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@each $animal, $image in $animals-active {
+  .#{$animal}.active {
+    background: url("./assets/img/game-room/#{$image}");
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@each $furniture, $image in $furnitures {
+  .#{$furniture} {
+    background: url("./assets/img/game-room/#{$image}");
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@each $furniture, $image in $furnitures-active {
+  .#{$furniture}.active {
+    background: url("./assets/img/game-room/#{$image}");
+  }
+}
 
 .animation {
   animation: transformation 1s ease-in;
@@ -75,13 +131,13 @@
 @keyframes transformation {
   10%, 50%, to {transform: skew(0, 0);}
   20% { transform: skew(1deg, 1deg); }
-  80% { transform: skew(2deg, 2deg); }
+  80% { transform: skew(2.5deg, 2.5deg); }
 }
 
 @keyframes transformation-reflection {
   60%, 80%, to {transform: skew(0, 0) scale(-1, 1);}
   20% { transform: skew(1deg, 1deg) scale(-1, 1); }
-  80% { transform: skew(2deg, 2deg) scale(-1, 1); }
+  80% { transform: skew(2.5deg, 2.5deg) scale(-1, 1); }
 }
 
 .no-reflection.active::after,
@@ -120,7 +176,52 @@
   animation: fly 0.45s;
 }
 
+$loader-animals: (
+  racoon--small: "racoon--small--active.png",
+  gray-cat--small: "gray-cat--small--active.png",
+  white-cat--small: "white-cat--small--active.png",
+  racoon: "racoon--active.png",
+  racoon--fancy: "racoon--fancy--active.png",
+  gray-cat: "gray-cat--active.png",
+  gray-cat--fancy: "gray-cat--fancy--active.png",
+  white-cat: "white-cat--active.png",
+);
+
+$loader-furnitures: (
+  armchair: "armchair--active.png",
+  carpet: "carpet--active.png",
+  carpet--red: "carpet--red--active.png",
+);
+
+.picture-loader {
+  position: absolute;
+  top: -6500px;
+  right: -6500px;
+
+  @each $animal, $image in $loader-animals {
+    .#{$animal} {
+      background-image: "./assets/img/game-room/#{$image}";
+    }
+  }
+
+  @each $furniture, $image in $loader-furnitures {
+    .#{$furniture} {
+      background-image: "./assets/img/game-room/#{$image}";
+    }
+  }
+}
+
+.appearance {
+  animation: appearance 0.5s;
+}
+
 @keyframes fly {
   from {transform: translateY(0);}
   to {transform: translateY(-500px);}
+}
+
+@keyframes appearance {
+  from {opacity: 0;}
+  50% {opacity: 0;}
+  to {opacity: 1;}
 }

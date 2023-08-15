@@ -2,7 +2,7 @@
   {
     "isPassed": true,
     "isHint": false,
-    "winCondition": ["#inCap"],
+    "winCondition": ["#inCap", "gray-cat:first-child"],
     "header": "Select the gray cat in a cap",
     "hint": "#id",
     "description": "Select element with the id <span class='high'>inCap</span>",
@@ -98,7 +98,7 @@
   {
     "isPassed": false,
     "isHint": false,
-    "winCondition": ["white-cat.small"],
+    "winCondition": ["white-cat.cub"],
     "header": "Select the small white cats",
     "hint": "A.className",
     "description": "You can combine the class selector with other selectors, like the type selector.",
@@ -121,7 +121,7 @@
     "isHint": false,
     "winCondition": ["armchair gray-cat.cub", "armchair .cub"],
     "header": "Select the cubs gray cats in the armchairs",
-    "hint": "Put your back into it!",
+    "hint": "Try yourself!",
     "description": "Combine what you learned in the last few levels to solve this one!",
     "gameObjects": [
       {"type": "armchair", "active": false, "child": {

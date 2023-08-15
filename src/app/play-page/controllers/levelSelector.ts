@@ -1,17 +1,12 @@
-import { DataStorage, globalDataStorage } from '../../shared/data/dataStorage';
+import { globalDataStorage } from '../../shared/data/dataStorage';
+import { ModeLoad } from '../../shared/types/enums';
 import { Callback } from '../../shared/types/generics';
-import { Cleaner } from './cleaner';
 
 export class LevelSelector {
-  private dataStorage: DataStorage;
-  private cleaner: Cleaner;
-  constructor() {
-    this.dataStorage = globalDataStorage;
-    this.cleaner = new Cleaner();
-  }
-  goToSelectedLevel = (selectedLevel: number, drawGamePageCallback: Callback<string>): void => {
+  private dataStorage = globalDataStorage;
+
+  goToSelectedLevel = (selectedLevel: number, drawGamePageCallback: Callback<ModeLoad>): void => {
     this.dataStorage.currentLevel = selectedLevel;
-    this.cleaner.cleanGameArea(true);
-    drawGamePageCallback('load');
+    drawGamePageCallback(ModeLoad.load);
   };
 }

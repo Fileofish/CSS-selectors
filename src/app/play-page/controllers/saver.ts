@@ -1,11 +1,8 @@
-import { DataStorage, globalDataStorage } from '../../shared/data/dataStorage';
+import { globalDataStorage } from '../../shared/data/dataStorage';
 import { SaveData } from '../../shared/types/interfaces';
 
 export class Saver {
-  private dataStorage: DataStorage;
-  constructor() {
-    this.dataStorage = globalDataStorage;
-  }
+  private dataStorage = globalDataStorage;
 
   listenToAutoSave(): void {
     window.onbeforeunload = this.saveGame;
@@ -22,7 +19,6 @@ export class Saver {
       saveData.isPassedLevels.push(levelNum.isPassed);
       saveData.isHintedLevels.push(levelNum.isHint);
     });
-
     localStorage.setItem('CSSPrankstersData', JSON.stringify(saveData));
   };
 }
