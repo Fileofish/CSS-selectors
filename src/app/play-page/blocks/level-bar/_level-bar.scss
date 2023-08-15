@@ -26,7 +26,6 @@
   }
 
   .level-bar__burger-button.active {
-
     @include w_1240 {
       padding: 19px 115px 6px 20px;
       background-color: $color-background-alt-secondary;
@@ -34,13 +33,16 @@
       animation: blinkingBurger 1s;
       animation-iteration-count: infinite;
     }
-  
   }
 }
 
 @keyframes blinkingBurger {
-  from {background-color: $color-background-alt-secondary;}
-  to {background-color: $color-background-secondary;}
+  from {
+    background-color: $color-background-alt-secondary;
+  }
+  to {
+    background-color: $color-background-secondary;
+  }
 }
 
 .level-bar {
@@ -54,21 +56,51 @@
     display: none;
     width: 22%;
   }
-  @include w_1185 {width: 24%;}
-  @include w_1080 {width: 26%;}
-  @include w_1000 {width: 28%;}
-  @include w_925 {width: 30%;}
-  @include w_865 {width: 32%;}
-  @include w_810 {width: 34%;}
-  @include w_765 {width: 36%;}
-  @include w_720 {width: 38%;}
-  @include w_685 {width: 40%;}
-  @include w_650 {width: 42%;}
-  @include w_620 {width: 44%;}
-  @include w_590 {width: 46%;}
-  @include w_565 {width: 48%;}
-  @include w_540 {width: 50%;}
-  @include w_520 {width: 52%;}
+  @include w_1185 {
+    width: 24%;
+  }
+  @include w_1080 {
+    width: 26%;
+  }
+  @include w_1000 {
+    width: 28%;
+  }
+  @include w_925 {
+    width: 30%;
+  }
+  @include w_865 {
+    width: 32%;
+  }
+  @include w_810 {
+    width: 34%;
+  }
+  @include w_765 {
+    width: 36%;
+  }
+  @include w_720 {
+    width: 38%;
+  }
+  @include w_685 {
+    width: 40%;
+  }
+  @include w_650 {
+    width: 42%;
+  }
+  @include w_620 {
+    width: 44%;
+  }
+  @include w_590 {
+    width: 46%;
+  }
+  @include w_565 {
+    width: 48%;
+  }
+  @include w_540 {
+    width: 50%;
+  }
+  @include w_520 {
+    width: 52%;
+  }
 
   &__wrapper {
     padding-top: 20px;
@@ -80,6 +112,30 @@
     padding-right: 20px;
   }
 
+  &__points-rules {
+    @include text-style(
+      $font-code-bold,
+      $font-size-medium,
+      $color-text
+    );
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    background-color: $color-background-alt-secondary;
+
+    &__list-wrapper {
+      padding: 0 15px;
+      letter-spacing: 0.5px;
+      line-height: 1.5;
+    }
+  }
+
+  &__main {
+    padding: 15px;
+    border-radius: 15px;
+    background-color: $color-background-alt-secondary;
+  }
+
   &__title-wrapper {
     @include flex(flex);
     margin-bottom: 7px;
@@ -87,17 +143,17 @@
     .level-bar__title {
       @include text-style($font-main-heading, $font-size-header, $color-text);
     }
-  
+
     .level-bar__description-button {
       @include padding-margin(2px, 0 20px 0 0);
       @include width-height(31px, 31px);
       fill: $color-text;
-      background-color: $color-background-secondary;
+      background-color: $color-background-accent-primary;
       @include border(none, 50%);
       cursor: pointer;
     }
     .level-bar__description-button:hover {
-      background-color: $color-background-accent-primary;
+      background-color: $color-background-alt-secondary;
       fill: $color-border;
     }
     .level-bar__description-button.active,
@@ -125,7 +181,11 @@
       display: inline-block;
       @include padding-margin(0 7px, 0 0 3px 0);
       background-color: $color-background-alt-secondary;
-      @include text-style($font-primary-bold, $font-size-medium, $color-text-accent);
+      @include text-style(
+        $font-primary-bold,
+        $font-size-medium,
+        $color-text-accent
+      );
     }
 
     &__description {
@@ -134,7 +194,11 @@
       .high {
         display: inline-block;
         padding: 0 3px;
-        @include text-style($font-primary-bold, $font-size-small, $color-text-accent);
+        @include text-style(
+          $font-primary-bold,
+          $font-size-small,
+          $color-text-accent
+        );
         background-color: $color-background-alt-secondary;
       }
     }
@@ -153,13 +217,13 @@
     margin: 7px 0 15px;
     list-style: none;
     @include text-style($font-primary-bold, $font-size-medium, $color-text);
-  
+
     .level {
       @include flex(flex, auto, center);
-      @include padding-margin(3px 5px, 2px); 
+      @include padding-margin(3px 5px, 2px);
       cursor: no-drop;
       transition: all 0.3s;
-  
+
       &__icon-paws {
         @include width-height(20px, 20px);
         margin-right: 10px;
@@ -168,7 +232,11 @@
       }
 
       &-name {
-        @include text-style($font-primary-regular, $font-size-medium, $color-text)
+        @include text-style(
+          $font-primary-regular,
+          $font-size-medium,
+          $color-text
+        );
       }
     }
 
@@ -201,7 +269,7 @@
 
     .level.current {
       background-color: $color-background;
-      
+
       .level__icon-paws {
         fill: $color-text;
       }
@@ -213,32 +281,29 @@
   }
 
   .reset-button {
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     @include button($color-background-accent-primary);
+    border: 1px solid $color-text;
   }
-  
+
   .reset-button:hover {
-    @include button-hover($color-background, $color-text-accent);
+    @include button-hover($color-background-alt-secondary, $color-text);
   }
-  
+
   .reset-button:active {
-    @include button-active($color-background-accent-secondary, $color-text-alt);
+    @include button-active($color-background-accent-secondary, $color-text);
   }
 }
 
 .level-bar.active {
-
   @include w_1240 {
     display: block;
     z-index: 5;
   }
 
   .level-bar__title.off {
-
     @include w_1240 {
       display: none;
     }
-  
   }
 }
-
